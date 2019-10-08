@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from .base import Resource
+from .user_verification_data import UserValidationData
 
 
 @dataclass
@@ -25,3 +26,6 @@ class Identity(Resource):
     def create(cls, **metadata) -> 'Identity':
         resp = cls._client.post(cls._endpoint, json=dict(metadata=metadata))
         return cls(**resp)
+
+    def upload_validation_data(self, **kwargs) -> UserValidationData:
+        return UserValidationData.create(self._id, **kwargs)
