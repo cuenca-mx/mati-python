@@ -19,7 +19,7 @@ def scrub_access_token(response: dict) -> dict:
             user['firstName'] = 'FIRST_NAME'
             user['lastName'] = 'LAST_NAME'
             resp['payload']['user'] = user
-            response['body']['string'] = json.dumps(resp)
+            response['body']['string'] = json.dumps(resp).encode('utf-8')
     return response
 
 
