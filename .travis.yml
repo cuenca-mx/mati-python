@@ -6,7 +6,7 @@ cache: pip
 
 script:
   - make lint
-  - pytest --vcr-record=None
+  - pytest --vcr-record=none
 
 jobs:
   include:
