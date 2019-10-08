@@ -8,6 +8,10 @@ from .base import Resource
 
 @dataclass
 class AccessToken(Resource):
+    """
+    Based on: https://docs.getmati.com/#step-1-authentication
+    """
+
     _endpoint: ClassVar[str] = '/oauth'
 
     token: str
