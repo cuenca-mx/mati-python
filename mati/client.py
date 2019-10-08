@@ -17,6 +17,9 @@ class Client:
     bearer_token: AccessToken
     headers: dict
 
+    # resources
+    access_tokens = AccessToken
+
     def __init__(
         self, api_key: Optional[str] = None, secret_key: Optional[str] = None
     ):
@@ -28,17 +31,13 @@ class Client:
         Resource._client = self
 
     def renew_access_token(self):
-        self.bearer_token = AccessToken.create()
+        self.bearer_token = self.access_tokens.create()
 
-    def post(self, endpoint: str, data: dict, **kwargs):
-        return self.request('post', endpoint, data, **kwargs)
+    def post(self, endpoint: str, **kwargs):
+        return self.request('post', endpoint, **kwargs)
 
     def request(
-        self,
-        method: str,
-        endpoint: str,
-        data: dict,
-        auth: Optional[str] = None,
+        self, method: str, endpoint: str, auth: Optional[str] = None, **kwargs
     ) -> dict:
         url = self.base_url + endpoint
         if auth is None:
@@ -46,12 +45,7 @@ class Client:
                 self.renew_access_token()
             auth = str(self.bearer_token)
         headers = dict(Authorization=auth)
-        response = self.session.request(
-            method, url, data=data, headers=headers
-        )
-        import ipdb
-
-        ipdb.set_trace()
+        response = self.session.request(method, url, headers=headers, **kwargs)
         self._check_response(response)
         return response.json()
 
