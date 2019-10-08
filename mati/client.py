@@ -29,8 +29,10 @@ class Client:
         self.bearer_token = AccessToken(token='', expires_at=dt.datetime.now())
         Resource._client = self
 
-    def renew_access_token(self):
-        self.bearer_token = self.access_tokens.create()
+    def get_valid_bearer_token(self) -> str:
+        if self.bearer_token.expired:
+            self.bearer_token = self.access_tokens.create()  # renew token
+        return str(self.bearer_token)
 
     def post(self, endpoint: str, **kwargs):
         return self.request('post', endpoint, **kwargs)
@@ -39,10 +41,7 @@ class Client:
         self, method: str, endpoint: str, auth: Optional[str] = None, **kwargs
     ) -> dict:
         url = self.base_url + endpoint
-        if auth is None:  # use Bearer Token
-            if self.bearer_token.expired:
-                self.renew_access_token()
-            auth = str(self.bearer_token)
+        auth = auth or self.get_valid_bearer_token()
         headers = dict(Authorization=auth)
         response = self.session.request(method, url, headers=headers, **kwargs)
         self._check_response(response)
