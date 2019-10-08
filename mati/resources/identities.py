@@ -16,7 +16,7 @@ class Identity(Resource):
     _id: str
     dateCreated: dt.datetime
     dateUpdated: dt.datetime
-    alive: Optional[bool]  # assuming it's a bool. Docs are not clear
+    alive: None  # At the moment, this always comes back as None
     metadata: dict
     status: str
     user: str
