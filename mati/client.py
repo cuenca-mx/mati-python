@@ -39,7 +39,7 @@ class Client:
         self, method: str, endpoint: str, auth: Optional[str] = None, **kwargs
     ) -> dict:
         url = self.base_url + endpoint
-        if auth is None:
+        if auth is None:  # use Bearer Authorization
             if self.bearer_token.expired:
                 self.renew_access_token()
             auth = str(self.bearer_token)

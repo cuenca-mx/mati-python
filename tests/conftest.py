@@ -9,7 +9,7 @@ from mati import Client
 def scrub_access_token(response: dict) -> dict:
     try:
         resp = json.loads(response['body']['string'])
-    except JSONDecodeError:
+    except (JSONDecodeError, KeyError):
         pass
     else:
         if 'access_token' in resp:
