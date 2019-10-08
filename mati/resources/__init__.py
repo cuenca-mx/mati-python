@@ -1,5 +1,4 @@
-__all__ = ['Identity', 'Document', 'ValidateRequest', 'Verification']
+__all__ = ['Resource', 'AccessToken']
 
-from .identities import Identity
-from .validate_requests import Document, ValidateRequest
-from .verifications import Verification
+from .access_tokens import AccessToken
+from .base import Resource

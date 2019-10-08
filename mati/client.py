@@ -1,110 +1,62 @@
-import json
+import datetime as dt
 import os
-from dataclasses import dataclass
-from datetime import datetime, timedelta
+from typing import ClassVar, Optional
 
-import requests
-from requests.auth import HTTPBasicAuth
+from requests import Response, Session
 
-from .resources import Document, Identity, ValidateRequest, Verification
-from .types import ValidationInputType
+from .resources import AccessToken, Resource
 
-API_URL = os.getenv('API_URL', 'https://api.getmati.com')
-API_AUTH_URI = os.getenv('API_AUTH_URI', '/oauth')
-API_IDENTITY_URI = os.getenv('API_IDENTITY_URI', '/v2/identities')
+API_URL = 'https://api.getmati.com'
 
 
-@dataclass
 class Client:
-    client_id: str
-    client_secret: str
-    token = None
-    authenticated_at = None
-    seconds = 0
 
-    def _authenticate(self):
-        # No está autenticada
-        if not self.token or (
-            self.authenticated_at + timedelta(seconds=self.seconds)
-            < datetime.now()
-        ):
-            auth = HTTPBasicAuth(self.client_id, self.client_secret)
-            response = requests.post(
-                API_URL + API_AUTH_URI,
-                auth=auth,
-                data=dict(grant_type='client_credentials'),
-            )
-            if response.status_code == 200:
-                self.token = response.json()['access_token']
-                self.seconds = response.json()['expiresIn']
-                self.authenticated_at = datetime.now()
-            else:
-                raise Exception
+    base_url: ClassVar[str] = API_URL
+    session: Session
+    basic_auth_creds: tuple
+    bearer_token: AccessToken
+    headers: dict
 
-    def create_identity(self, person_id: str, person_name: str) -> Identity:
-        self._authenticate()
-        meta_data = {person_name, person_id}
-        response = requests.post(
-            API_URL + API_IDENTITY_URI,
-            headers={'Authorization': 'Bearer ' + self.token},
-            data=dict(metadata=meta_data),
+    def __init__(
+        self, api_key: Optional[str] = None, secret_key: Optional[str] = None
+    ):
+        self.session = Session()
+        api_key = api_key or os.environ['MATI_API_KEY']
+        secret_key = secret_key or os.environ['MATI_SECRET_KEY']
+        self.basic_auth_creds = (api_key, secret_key)
+        self.bearer_token = AccessToken(token='', expires_at=dt.datetime.now())
+        Resource._client = self
+
+    def renew_access_token(self):
+        self.bearer_token = AccessToken.create()
+
+    def post(self, endpoint: str, data: dict, **kwargs):
+        return self.request('post', endpoint, data, **kwargs)
+
+    def request(
+        self,
+        method: str,
+        endpoint: str,
+        data: dict,
+        auth: Optional[str] = None,
+    ) -> dict:
+        url = self.base_url + endpoint
+        if auth is None:
+            if self.bearer_token.expired:
+                self.renew_access_token()
+            auth = str(self.bearer_token)
+        headers = dict(Authorization=auth)
+        response = self.session.request(
+            method, url, data=data, headers=headers
         )
-        if response.status_code == 200:
-            identity = Identity(**response.json())
-            return identity
+        import ipdb
 
-    def validate_document(
-        self, validation_request: ValidateRequest
-    ) -> Verification:
-        self._authenticate()
-        response = dict(error='Invalid documents')
-        if len(validation_request.documents) == 0:
-            return Verification(**response)
-        for document in validation_request.documents:
-
-            request = self.get_validation_request(validation_request, document)
-            documents = self._get_files_request(document)
-            response = requests.post(
-                API_URL
-                + API_IDENTITY_URI
-                + '/'
-                + validation_request.identity_id
-                + '/send-input',
-                headers={'Authorization': 'Bearer ' + self.token},
-                data={'inputs': json.dumps(request)},
-                files=documents,
-            )
-            if response.status_code != 201:
-                return Verification(**dict(error=response.json()))
-        return Verification(**dict(result=response.json()))
+        ipdb.set_trace()
+        self._check_response(response)
+        return response.json()
 
     @staticmethod
-    def _get_files_request(document: Document) -> dict:
-        request = dict()
-        request[document.validation_type.value] = document.stream
-        return request
-
-    @staticmethod
-    def get_validation_request(request: ValidateRequest, document) -> dict:
-        data = []
-        if document.input_type == ValidationInputType.document_photo:
-            data.append(
-                dict(
-                    inputType=document.input_type.value,
-                    group=request.group,
-                    data=dict(
-                        type=document.document_type.value,
-                        country=request.country,
-                        page=document.page,
-                        filename=document.file_name,
-                    ),
-                )
-            )
-        else:
-            data.append(
-                dict(
-                    inputType=document.input_type.value,
-                    data=dict(filename=document.file_name),
-                )
-            )
-        return data
+    def _check_response(response: Response):
+        if response.ok:
+            return
+        response.raise_for_status()
