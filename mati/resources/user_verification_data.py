@@ -38,5 +38,5 @@ class UserValidationData(Resource):
             page=page,
         )
         files = [(filename, content)]
-        resp = cls._client.post(endpoint, json=data, files=files)
+        resp = cls._client.post(endpoint, json=[data], files=files)
         return resp
