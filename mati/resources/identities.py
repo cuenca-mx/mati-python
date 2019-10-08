@@ -1,6 +1,6 @@
 import datetime as dt
 from dataclasses import dataclass
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 from .base import Resource
 
