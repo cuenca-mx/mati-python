@@ -4,7 +4,7 @@ from typing import ClassVar, Optional
 
 from requests import Response, Session
 
-from .resources import AccessToken, Identity, Resource
+from .resources import AccessToken, Identity, Resource, UserValidationData
 
 API_URL = 'https://api.getmati.com'
 
@@ -19,6 +19,7 @@ class Client:
     # resources
     access_tokens = AccessToken
     identities = Identity
+    user_validation_data = UserValidationData
 
     def __init__(
         self, api_key: Optional[str] = None, secret_key: Optional[str] = None
