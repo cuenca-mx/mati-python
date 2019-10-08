@@ -30,7 +30,11 @@ setup(
     include_package_data=True,
     package_data=dict(mati=['py.typed']),
     python_requires='>=3.6',
-    install_requires=['dataclasses>=0.6;python_version<"3.7"', 'requests'],
+    install_requires=[
+        'dataclasses>=0.6;python_version<"3.7"',
+        'requests>=2.22.0,<3.0.0',
+        'iso8601>=0.1.12,<0.2.0',
+    ],
     setup_requires=['pytest-runner'],
     tests_require=test_requires,
     extras_require=dict(test=test_requires),
