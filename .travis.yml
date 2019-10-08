@@ -1,0 +1,17 @@
+language: python
+
+install: make install-test
+
+cache: pip
+
+script:
+  - make lint
+
+jobs:
+  include:
+    - stage: test
+      python: 3.6
+    - stage: test
+      python: 3.7
+      dist: xenial
+      sudo: true
