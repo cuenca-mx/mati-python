@@ -15,7 +15,6 @@ class Client:
     session: Session
     basic_auth_creds: tuple
     bearer_token: AccessToken
-    headers: dict
 
     # resources
     access_tokens = AccessToken
