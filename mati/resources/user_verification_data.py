@@ -1,13 +1,15 @@
 import io
 import json
 from dataclasses import dataclass
-from typing import ClassVar, Union
+from typing import ClassVar, Dict, Union
 
 from ..types import PageType, ValidationInputType, ValidationType
 from .base import Resource
 
 
-def file_with_type(input_type: str, content: io.BufferedReader) -> dict:
+def file_with_type(
+    input_type: str, content: io.BufferedReader
+) -> Dict[str, io.BufferedReader]:
     if input_type == 'selfie-video':
         file_type = 'video'
     elif input_type == 'selfie-photo':
