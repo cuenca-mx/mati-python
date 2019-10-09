@@ -1,6 +1,6 @@
 import datetime as dt
-from dataclasses import dataclass
-from typing import ClassVar
+from dataclasses import dataclass, field
+from typing import ClassVar, List, Optional, Union
 
 from .base import Resource
 from .user_verification_data import UserValidationData
@@ -17,10 +17,12 @@ class Identity(Resource):
     _id: str
     dateCreated: dt.datetime
     dateUpdated: dt.datetime
-    alive: None  # At the moment, this always comes back as None
-    metadata: dict
+    alive: Optional[bool]
     status: str
     user: str
+    metadata: Union[dict, List[str]] = field(default_factory=dict)
+    fullName: Optional[str] = None
+    facematchScore: Optional[float] = None
 
     @classmethod
     def create(cls, **metadata) -> 'Identity':
