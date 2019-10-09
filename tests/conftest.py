@@ -14,11 +14,15 @@ def scrub_access_token(response: dict) -> dict:
     else:
         if 'access_token' in resp:
             resp['access_token'] = 'ACCESS_TOKEN'
-            user = resp['payload']['user']
-            user['_id'] = 'ID'
-            user['firstName'] = 'FIRST_NAME'
-            user['lastName'] = 'LAST_NAME'
-            resp['payload']['user'] = user
+            try:
+                user = resp['payload']['user']
+            except KeyError:
+                pass
+            else:
+                user['_id'] = 'ID'
+                user['firstName'] = 'FIRST_NAME'
+                user['lastName'] = 'LAST_NAME'
+                resp['payload']['user'] = user
             response['body']['string'] = json.dumps(resp).encode('utf-8')
     return response
 

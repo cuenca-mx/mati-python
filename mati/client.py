@@ -29,7 +29,7 @@ class Client:
         secret_key = secret_key or os.environ['MATI_SECRET_KEY']
         self.basic_auth_creds = (api_key, secret_key)
         self.bearer_token = AccessToken(
-            user_id='', token='', expires_at=dt.datetime.now(), scope=None
+            user_id='', token='', expires_at=dt.datetime.now(), score=None
         )
         Resource._client = self
 

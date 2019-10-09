@@ -17,13 +17,15 @@ class AccessToken(Resource):
     user_id: str
     token: str
     expires_at: dt.datetime
-    scope: Optional[str]
+    score: Optional[str]
 
     @classmethod
-    def create(cls, scope: Optional[str] = None) -> 'AccessToken':
+    def create(cls, score: Optional[str] = None) -> 'AccessToken':
         data = dict(grant_type='client_credentials')
-        if scope:
-            data['scope'] = scope
+        endpoint = cls._endpoint
+        if score:
+            data['score'] = score
+            endpoint += '/token'
         resp = cls._client.post(
             cls._endpoint,
             data=data,
@@ -36,7 +38,7 @@ class AccessToken(Resource):
             user_id=resp['payload']['user']['_id'],
             token=resp['access_token'],
             expires_at=expires_at,
-            scope=resp['payload'].get('scope'),
+            score=score,
         )
 
     def __str__(self) -> str:
