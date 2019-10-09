@@ -14,7 +14,7 @@ class Client:
     base_url: ClassVar[str] = API_URL
     session: Session
     basic_auth_creds: tuple
-    bearer_token: AccessToken
+    bearer_token: Optional[AccessToken]
 
     # resources
     access_tokens: ClassVar = AccessToken
@@ -28,13 +28,11 @@ class Client:
         api_key = api_key or os.environ['MATI_API_KEY']
         secret_key = secret_key or os.environ['MATI_SECRET_KEY']
         self.basic_auth_creds = (api_key, secret_key)
-        self.bearer_token = AccessToken(
-            user_id='', token='', expires_at=dt.datetime.now(), score=None
-        )
+        self.bearer_token = None
         Resource._client = self
 
     def get_valid_bearer_token(self) -> AccessToken:
-        if self.bearer_token.expired:
+        if self.bearer_token is None or self.bearer_token.expired:
             self.bearer_token = self.access_tokens.create()  # renew token
         return self.bearer_token
 
