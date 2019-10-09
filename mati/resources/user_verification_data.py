@@ -27,7 +27,7 @@ class UserValidationData(Resource):
     @classmethod
     def upload(
         cls, identity_id: str, user_validation_files: List[UserValidationFile]
-    ) -> bool:
+    ) -> List[dict]:
         endpoint = cls._endpoint.format(identity_id=identity_id)
         files_metadata = []
         files_with_type = {}
@@ -51,4 +51,4 @@ class UserValidationData(Resource):
             data=dict(inputs=json.dumps(files_metadata)),
             files=files_with_type,
         )
-        return resp[0]['result']
+        return resp

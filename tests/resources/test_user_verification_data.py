@@ -21,5 +21,5 @@ def test_ine_upload(identity: Identity):
             validation_type=ValidationType.national_id,
             country='MX',
         )
-        uploaded = identity.upload_validation_data([user_validation_file])
-    assert uploaded is True
+        resp = identity.upload_validation_data([user_validation_file])
+    assert resp[0]['result'] is True

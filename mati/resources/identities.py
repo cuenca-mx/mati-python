@@ -43,5 +43,5 @@ class Identity(Resource):
 
     def upload_validation_data(
         self, user_validation_files: List[UserValidationFile]
-    ) -> bool:
+    ) -> List[dict]:
         return UserValidationData.upload(self._id, user_validation_files)
