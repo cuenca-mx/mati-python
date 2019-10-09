@@ -17,9 +17,9 @@ class Client:
     bearer_token: AccessToken
 
     # resources
-    access_tokens = AccessToken
-    identities = Identity
-    user_validation_data = UserValidationData
+    access_tokens: ClassVar = AccessToken
+    identities: ClassVar = Identity
+    user_validation_data: ClassVar = UserValidationData
 
     def __init__(
         self, api_key: Optional[str] = None, secret_key: Optional[str] = None

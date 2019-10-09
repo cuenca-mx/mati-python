@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: grant_type=client_credentials&score=identity
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '44'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://api.getmati.com/oauth
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '504'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 09 Oct 2019 03:50:17 GMT
+      X-Request-Id:
+      - 747dc6f1-a0a3-4db7-ba5a-b94498c4de9f
+    status:
+      code: 200
+      message: OK
+version: 1
