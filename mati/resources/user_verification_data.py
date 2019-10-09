@@ -1,8 +1,6 @@
 import io
 import json
 
-from io import BufferedReader
-
 from dataclasses import dataclass
 from typing import ClassVar, Union
 
@@ -39,21 +37,22 @@ class UserValidationData(Resource):
                 type=validation_type,
                 country=country,
                 page=page.value,
-                filename=filename
+                filename=filename,
+                region=region,
             )
         )
         files = cls.files(input_type, content)
-        resp = cls._client.post(endpoint, data={'inputs': json.dumps([data])}, files=files)
+        resp = cls._client.post(
+            endpoint, data={'inputs': json.dumps([data])}, files=files
+        )
         return resp
 
     @staticmethod
-    def files(input_type: str, content: BufferedReader) -> dict:
+    def files(input_type: str, content: io.BufferedReader) -> dict:
         files = dict(document=content)
         if input_type == 'selfie-video':
             dict(video=content)
             files = [('video', content)]
-        elif input_type == 'selfie_photo':
+        elif input_type == 'selfie-photo':
             dict(selfie=content)
         return files
-
-
