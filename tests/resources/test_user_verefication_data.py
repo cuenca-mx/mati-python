@@ -9,10 +9,10 @@ def test_user_verification(client: Client, identity: Identity):
     with open('tests/images/ine.jpg', 'rb') as ff:
         user_validation = client.user_validation_data.create(
             identity_id=identity._id,
-            filename='tests/images/ine.jpg',
+            filename='ine.jpg',
             content=ff,
             input_type='document-photo',
             validation_type='national-id',
             country='MX',
         )
-        assert user_validation
+        assert user_validation[0]['result'] is True
