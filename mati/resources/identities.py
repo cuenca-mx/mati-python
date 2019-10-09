@@ -40,5 +40,5 @@ class Identity(Resource):
         for k, v in identity.__dict__.items():
             setattr(self, k, v)
 
-    def upload_validation_data(self, **kwargs) -> UserValidationData:
-        return UserValidationData.create(self._id, **kwargs)
+    def upload_validation_data(self, **kwargs) -> bool:
+        return UserValidationData.upload(self._id, **kwargs)

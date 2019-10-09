@@ -26,7 +26,7 @@ class UserValidationData(Resource):
     _endpoint: ClassVar[str] = '/v2/identities/{identity_id}/send-input'
 
     @classmethod
-    def create(
+    def upload(
         cls,
         identity_id: str,
         filename: str,
@@ -37,7 +37,7 @@ class UserValidationData(Resource):
         region: str = '',  # 2-digit US State code (if applicable)
         group: int = 0,
         page: Union[str, PageType] = PageType.front,
-    ) -> 'UserValidationData':
+    ) -> bool:
         endpoint = cls._endpoint.format(identity_id=identity_id)
         data = dict(
             inputType=input_type,
@@ -55,4 +55,4 @@ class UserValidationData(Resource):
             data=dict(inputs=json.dumps([data])),
             files=file_with_type(input_type, content),
         )
-        return resp
+        return resp[0]['result']
