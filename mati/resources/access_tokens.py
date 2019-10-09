@@ -14,10 +14,10 @@ class AccessToken(Resource):
 
     _endpoint: ClassVar[str] = '/oauth'
 
-    user_id: str
     token: str
     expires_at: dt.datetime
     score: Optional[str]
+    user_id: Optional[str]
 
     @classmethod
     def create(cls, score: Optional[str] = None) -> 'AccessToken':
@@ -27,15 +27,21 @@ class AccessToken(Resource):
             data['score'] = score
             endpoint += '/token'
         resp = cls._client.post(
-            cls._endpoint,
+            endpoint,
             data=data,
             auth=basic_auth_str(*cls._client.basic_auth_creds),
         )
-        expires_at = dt.datetime.now() + dt.timedelta(
-            seconds=resp['expiresIn']
-        )
+        try:
+            expires_in = resp['expiresIn']
+        except KeyError:
+            expires_in = resp['expires_in']
+        expires_at = dt.datetime.now() + dt.timedelta(seconds=expires_in)
+        try:
+            user_id = resp['payload']['user']['_id']
+        except KeyError:
+            user_id = None
         return cls(
-            user_id=resp['payload']['user']['_id'],
+            user_id=user_id,
             token=resp['access_token'],
             expires_at=expires_at,
             score=score,

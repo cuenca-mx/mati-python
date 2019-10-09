@@ -15,22 +15,36 @@ interactions:
       User-Agent:
       - python-requests/2.22.0
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.getmati.com/oauth/token
   response:
     body:
-      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
-        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+      string: '{"access_token": "ACCESS_TOKEN", "expires_in": 3600, "token_type":
+        "Bearer"}'
     headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store
       Connection:
       - keep-alive
       Content-Length:
-      - '504'
+      - '193'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 09 Oct 2019 03:50:17 GMT
-      X-Request-Id:
-      - 747dc6f1-a0a3-4db7-ba5a-b94498c4de9f
+      - Wed, 09 Oct 2019 05:52:11 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - X-HTTP-Method-Override
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Powered-By:
+      - Express
+      X-Xss-Protection:
+      - 1; mode=block
     status:
       code: 200
       message: OK
