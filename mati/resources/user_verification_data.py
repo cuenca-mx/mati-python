@@ -38,7 +38,7 @@ class UserValidationData(Resource):
                 page=page.value,
                 filename=filename,
                 region=region,
-            )
+            ),
         )
         files = cls.files(input_type, content)
         resp = cls._client.post(

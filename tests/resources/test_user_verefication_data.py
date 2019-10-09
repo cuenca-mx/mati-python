@@ -13,6 +13,6 @@ def test_user_verification(client: Client, identity: Identity):
             content=ff,
             input_type='document-photo',
             validation_type='national-id',
-            country='MX'
+            country='MX',
         )
         assert user_validation
