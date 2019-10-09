@@ -19,7 +19,7 @@ class Identity(Resource):
     dateUpdated: dt.datetime
     alive: Optional[bool]
     status: str
-    user: str
+    user: Optional[str] = None
     metadata: Union[dict, List[str]] = field(default_factory=dict)
     fullName: Optional[str] = None
     facematchScore: Optional[float] = None
