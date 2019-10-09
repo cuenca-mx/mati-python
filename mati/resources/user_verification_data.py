@@ -7,6 +7,16 @@ from ..types import PageType, ValidationInputType, ValidationType
 from .base import Resource
 
 
+def file_with_type(input_type: str, content: io.BufferedReader) -> dict:
+    if input_type == 'selfie-video':
+        file_type = 'video'
+    elif input_type == 'selfie-photo':
+        file_type = 'selfie'
+    else:
+        file_type = 'document'
+    return {file_type: content}
+
+
 @dataclass
 class UserValidationData(Resource):
     """
@@ -21,7 +31,7 @@ class UserValidationData(Resource):
         identity_id: str,
         filename: str,
         content: io.BufferedReader,
-        input_type: Union[str, ValidationInputType],
+        input_type: ValidationInputType,
         validation_type: Union[str, ValidationType],
         country: str,  # alpha-2 code: https://www.iban.com/country-codes
         region: str = '',  # 2-digit US State code (if applicable)
@@ -40,17 +50,9 @@ class UserValidationData(Resource):
                 region=region,
             ),
         )
-        files = cls.files(input_type, content)
         resp = cls._client.post(
-            endpoint, data=dict(inputs=json.dumps([data])), files=files
+            endpoint,
+            data=dict(inputs=json.dumps([data])),
+            files=file_with_type(input_type, content),
         )
         return resp
-
-    @staticmethod
-    def files(input_type: str, content: io.BufferedReader) -> dict:
-        files = dict(document=content)
-        if input_type == 'selfie-video':
-            files = dict(video=content)
-        elif input_type == 'selfie-photo':
-            files = dict(selfie=content)
-        return files
