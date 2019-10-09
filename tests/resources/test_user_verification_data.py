@@ -10,7 +10,7 @@ FIXTURE_DIR = os.path.join(
 
 
 @pytest.mark.vcr
-def test_user_verification(identity: Identity):
+def test_ine_upload(identity: Identity):
     filepath = os.path.join(FIXTURE_DIR, 'ine.jpg')
     with open(filepath, 'rb') as ine:
         uploaded = identity.upload_validation_data(
