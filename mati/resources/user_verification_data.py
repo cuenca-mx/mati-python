@@ -50,8 +50,7 @@ class UserValidationData(Resource):
     def files(input_type: str, content: io.BufferedReader) -> dict:
         files = dict(document=content)
         if input_type == 'selfie-video':
-            dict(video=content)
-            files = [('video', content)]
+            files = dict(video=content)
         elif input_type == 'selfie-photo':
-            dict(selfie=content)
+            files = dict(selfie=content)
         return files
