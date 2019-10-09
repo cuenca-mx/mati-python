@@ -14,6 +14,7 @@ class AccessToken(Resource):
 
     _endpoint: ClassVar[str] = '/oauth'
 
+    user_id: str
     token: str
     expires_at: dt.datetime
     scope: Optional[str]
@@ -31,9 +32,11 @@ class AccessToken(Resource):
         expires_at = dt.datetime.now() + dt.timedelta(
             seconds=resp['expiresIn']
         )
-        scope = resp['payload'].get('scope')
         return cls(
-            token=resp['access_token'], expires_at=expires_at, scope=scope
+            user_id=resp['payload']['user']['_id'],
+            token=resp['access_token'],
+            expires_at=expires_at,
+            scope=resp['payload'].get('scope'),
         )
 
     def __str__(self) -> str:
