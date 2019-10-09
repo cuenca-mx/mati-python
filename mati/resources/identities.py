@@ -2,6 +2,7 @@ import datetime as dt
 from dataclasses import dataclass, field
 from typing import ClassVar, List, Optional, Union
 
+from ..types import UserValidationFile
 from .base import Resource
 from .user_verification_data import UserValidationData
 
@@ -40,5 +41,7 @@ class Identity(Resource):
         for k, v in identity.__dict__.items():
             setattr(self, k, v)
 
-    def upload_validation_data(self, **kwargs) -> bool:
-        return UserValidationData.upload(self._id, **kwargs)
+    def upload_validation_data(
+        self, user_validation_files: List[UserValidationFile]
+    ) -> bool:
+        return UserValidationData.upload(self._id, user_validation_files)

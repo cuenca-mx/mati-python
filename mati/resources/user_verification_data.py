@@ -1,22 +1,19 @@
-import io
 import json
 from dataclasses import dataclass
-from typing import ClassVar, Dict, Union
+from typing import ClassVar, List
 
-from ..types import PageType, ValidationInputType, ValidationType
+from ..types import UserValidationFile
 from .base import Resource
 
 
-def file_with_type(
-    input_type: str, content: io.BufferedReader
-) -> Dict[str, io.BufferedReader]:
+def get_file_type(input_type: str) -> str:
     if input_type == 'selfie-video':
         file_type = 'video'
     elif input_type == 'selfie-photo':
         file_type = 'selfie'
     else:
         file_type = 'document'
-    return {file_type: content}
+    return file_type
 
 
 @dataclass
@@ -29,32 +26,29 @@ class UserValidationData(Resource):
 
     @classmethod
     def upload(
-        cls,
-        identity_id: str,
-        filename: str,
-        content: io.BufferedReader,
-        input_type: ValidationInputType,
-        validation_type: Union[str, ValidationType],
-        country: str,  # alpha-2 code: https://www.iban.com/country-codes
-        region: str = '',  # 2-digit US State code (if applicable)
-        group: int = 0,
-        page: Union[str, PageType] = PageType.front,
+        cls, identity_id: str, user_validation_files: List[UserValidationFile]
     ) -> bool:
         endpoint = cls._endpoint.format(identity_id=identity_id)
-        data = dict(
-            inputType=input_type,
-            group=group,
-            data=dict(
-                type=validation_type,
-                country=country,
-                page=page.value,
-                filename=filename,
-                region=region,
-            ),
-        )
+        files_metadata = []
+        files_with_type = {}
+        for file in user_validation_files:
+            files_metadata.append(
+                dict(
+                    inputType=file.input_type,
+                    group=file.group,
+                    data=dict(
+                        type=file.validation_type,
+                        country=file.country,
+                        page=file.page,
+                        filename=file.filename,
+                        region=file.region,
+                    ),
+                )
+            )
+            files_with_type[get_file_type(file.input_type)] = file.content
         resp = cls._client.post(
             endpoint,
-            data=dict(inputs=json.dumps([data])),
-            files=file_with_type(input_type, content),
+            data=dict(inputs=json.dumps(files_metadata)),
+            files=files_with_type,
         )
         return resp[0]['result']
