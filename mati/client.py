@@ -35,10 +35,10 @@ class Client:
             self.bearer_token = self.access_tokens.create()  # renew token
         return self.bearer_token
 
-    def get(self, endpoint: str, **kwargs):
+    def get(self, endpoint: str, **kwargs) -> dict:
         return self.request('get', endpoint, **kwargs)
 
-    def post(self, endpoint: str, **kwargs):
+    def post(self, endpoint: str, **kwargs) -> dict:
         return self.request('post', endpoint, **kwargs)
 
     def request(
