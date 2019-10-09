@@ -1,6 +1,7 @@
 import pytest
 
 from mati import Client
+from mati.resources import Identity
 
 
 @pytest.mark.vcr
@@ -13,3 +14,11 @@ def test_create_identity(client: Client):
     )
     identity = client.identities.create(**metadata)
     assert identity.metadata == metadata
+
+
+@pytest.mark.vcr
+def test_retrieve_identity(client: Client, identity: Identity):
+    new_identity = client.identities.retrieve(identity._id)
+    assert new_identity == identity
+    identity.refresh()
+    assert new_identity == identity

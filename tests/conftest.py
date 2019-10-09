@@ -35,3 +35,13 @@ def vcr_config() -> dict:
 def client():
     # using credentials from env
     yield Client()
+
+
+@pytest.fixture
+def identity(client):
+    yield client.identities.create(
+        nombres='Georg Wilhelm',
+        primer_apellido='Friedrich',
+        segundo_apellido='Hegel',
+        dob='1770-08-27',
+    )

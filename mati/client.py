@@ -1,6 +1,6 @@
 import datetime as dt
 import os
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 
 from requests import Response, Session
 
@@ -28,23 +28,32 @@ class Client:
         api_key = api_key or os.environ['MATI_API_KEY']
         secret_key = secret_key or os.environ['MATI_SECRET_KEY']
         self.basic_auth_creds = (api_key, secret_key)
-        self.bearer_token = AccessToken(token='', expires_at=dt.datetime.now())
+        self.bearer_token = AccessToken(
+            token='', expires_at=dt.datetime.now(), scope=None
+        )
         Resource._client = self
 
-    def get_valid_bearer_token(self) -> str:
+    def get_valid_bearer_token(self) -> AccessToken:
         if self.bearer_token.expired:
             self.bearer_token = self.access_tokens.create()  # renew token
-        return str(self.bearer_token)
+        return self.bearer_token
+
+    def get(self, endpoint: str, **kwargs):
+        return self.request('get', endpoint, **kwargs)
 
     def post(self, endpoint: str, **kwargs):
         return self.request('post', endpoint, **kwargs)
 
     def request(
-        self, method: str, endpoint: str, auth: Optional[str] = None, **kwargs
+        self,
+        method: str,
+        endpoint: str,
+        auth: Union[str, AccessToken, None] = None,
+        **kwargs,
     ) -> dict:
         url = self.base_url + endpoint
         auth = auth or self.get_valid_bearer_token()
-        headers = dict(Authorization=auth)
+        headers = dict(Authorization=str(auth))
         response = self.session.request(method, url, headers=headers, **kwargs)
         self._check_response(response)
         return response.json()

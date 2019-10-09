@@ -1,6 +1,6 @@
 import datetime as dt
 from dataclasses import dataclass
-from typing import ClassVar
+from typing import ClassVar, Optional
 
 from ..auth import basic_auth_str, bearer_auth_str
 from .base import Resource
@@ -16,18 +16,25 @@ class AccessToken(Resource):
 
     token: str
     expires_at: dt.datetime
+    scope: Optional[str]
 
     @classmethod
-    def create(cls) -> 'AccessToken':
+    def create(cls, scope: Optional[str] = None) -> 'AccessToken':
+        data = dict(grant_type='client_credentials')
+        if scope:
+            data['scope'] = scope
         resp = cls._client.post(
             cls._endpoint,
-            data=dict(grant_type='client_credentials'),
+            data=data,
             auth=basic_auth_str(*cls._client.basic_auth_creds),
         )
         expires_at = dt.datetime.now() + dt.timedelta(
             seconds=resp['expiresIn']
         )
-        return cls(token=resp['access_token'], expires_at=expires_at)
+        scope = resp['payload'].get('scope')
+        return cls(
+            token=resp['access_token'], expires_at=expires_at, scope=scope
+        )
 
     def __str__(self) -> str:
         return bearer_auth_str(self.token)
