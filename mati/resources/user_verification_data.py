@@ -1,4 +1,8 @@
 import io
+import json
+
+from io import BufferedReader
+
 from dataclasses import dataclass
 from typing import ClassVar, Union
 
@@ -29,14 +33,27 @@ class UserValidationData(Resource):
     ) -> 'UserValidationData':
         endpoint = cls._endpoint.format(identity_id=identity_id)
         data = dict(
-            filename=filename,
             inputType=input_type,
             group=group,
-            type=validation_type,
-            country=country,
-            region=region,
-            page=page,
+            data=dict(
+                type=validation_type,
+                country=country,
+                page=page.value,
+                filename=filename
+            )
         )
-        files = [(filename, content)]
-        resp = cls._client.post(endpoint, json=[data], files=files)
+        files = cls.files(input_type, content)
+        resp = cls._client.post(endpoint, data={'inputs': json.dumps([data])}, files=files)
         return resp
+
+    @staticmethod
+    def files(input_type: str, content: BufferedReader) -> dict:
+        files = dict(document=content)
+        if input_type == 'selfie-video':
+            dict(video=content)
+            files = [('video', content)]
+        elif input_type == 'selfie_photo':
+            dict(selfie=content)
+        return files
+
+

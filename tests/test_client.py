@@ -19,3 +19,16 @@ def test_failed_auth():
     with pytest.raises(HTTPError) as exc_info:
         client.access_tokens.create()
     assert exc_info.value.response.status_code == 401
+
+
+def test_user_verification(client, identity):
+    with open('tests/images/ine.jpg', 'rb') as ff:
+        respone = client.user_validation_data.create(
+            identity_id=identity._id,
+            filename='tests/images/ine.jpg',
+            content=ff,
+            input_type='document-photo',
+            validation_type='national-id',
+            country='MX'
+        )
+        assert respone
