@@ -20,7 +20,7 @@ class UserValidationData(Resource):
         cls,
         identity_id: str,
         filename: str,
-        content: io.RawIOBase,
+        content: io.BufferedReader,
         input_type: Union[str, ValidationInputType],
         validation_type: Union[str, ValidationType],
         country: str,  # alpha-2 code: https://www.iban.com/country-codes
@@ -42,7 +42,7 @@ class UserValidationData(Resource):
         )
         files = cls.files(input_type, content)
         resp = cls._client.post(
-            endpoint, data={'inputs': json.dumps([data])}, files=files
+            endpoint, data=dict(inputs=json.dumps([data])), files=files
         )
         return resp
 
