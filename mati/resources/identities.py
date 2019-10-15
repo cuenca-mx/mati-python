@@ -20,6 +20,7 @@ class Identity(Resource):
     dateUpdated: dt.datetime
     alive: Optional[bool]
     status: str
+    annotatedStatus: Optional[str] = None
     user: Optional[str] = None
     metadata: Union[dict, List[str]] = field(default_factory=dict)
     fullName: Optional[str] = None
