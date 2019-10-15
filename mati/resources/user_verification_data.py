@@ -1,5 +1,4 @@
 import json
-from dataclasses import dataclass
 from typing import ClassVar, List
 
 from ..types import UserValidationFile
@@ -16,7 +15,6 @@ def get_file_type(input_type: str) -> str:
     return file_type
 
 
-@dataclass
 class UserValidationData(Resource):
     """
     Based on: https://docs.getmati.com/#step-3-upload-user-verification-data
