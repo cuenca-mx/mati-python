@@ -18,7 +18,7 @@ def test_create_identity(client: Client):
 
 @pytest.mark.vcr
 def test_retrieve_identity(client: Client, identity: Identity):
-    new_identity = client.identities.retrieve(identity._id)
+    new_identity = client.identities.retrieve(identity.id)
     assert new_identity == identity
     identity.refresh()
     assert new_identity == identity

@@ -5,6 +5,116 @@ import pytest
 
 from mati import Client
 
+VERIFICATION_RESP = {
+    'expired': False,
+    'steps': [],
+    'documents': [
+        {
+            'country': 'MX',
+            'region': '',
+            'photos': [
+                'https://media.getmati.com/media/xxx',
+                'https://media.getmati.com/media/yyy',
+            ],
+            'steps': [
+                {'error': None, 'status': 200, 'id': 'template-matching'},
+                {
+                    'error': None,
+                    'status': 200,
+                    'id': 'mexican-curp-validation',
+                    'data': {
+                        'curp': 'CURP',
+                        'fullName': 'LAST FIRST',
+                        'birthDate': '01/01/1980',
+                        'gender': 'HOMBRE',
+                        'nationality': 'MEXICO',
+                        'surname': 'LAST',
+                        'secondSurname': '',
+                        'name': 'FIRST',
+                    },
+                },
+                {
+                    'error': None,
+                    'status': 200,
+                    'id': 'document-reading',
+                    'data': {
+                        'fullName': {
+                            'value': 'FIRST LAST',
+                            'label': 'Name',
+                            'sensitive': True,
+                        },
+                        'documentNumber': {
+                            'value': '111',
+                            'label': 'Document Number',
+                        },
+                        'dateOfBirth': {
+                            'value': '1980-01-01',
+                            'label': 'Day of Birth',
+                            'format': 'date',
+                        },
+                        'expirationDate': {
+                            'value': '2030-12-31',
+                            'label': 'Date of Expiration',
+                            'format': 'date',
+                        },
+                        'curp': {'value': 'CURP', 'label': 'CURP'},
+                        'address': {
+                            'value': 'Varsovia 36, 06600 CDMX',
+                            'label': 'Address',
+                        },
+                        'emissionDate': {
+                            'value': '2010-01-01',
+                            'label': 'Emission Date',
+                            'format': 'date',
+                        },
+                    },
+                },
+                {'error': None, 'status': 200, 'id': 'alteration-detection'},
+                {'error': None, 'status': 200, 'id': 'watchlists'},
+            ],
+            'type': 'national-id',
+            'fields': {
+                'fullName': {
+                    'value': 'FIRST LAST',
+                    'label': 'Name',
+                    'sensitive': True,
+                },
+                'documentNumber': {'value': '111', 'label': 'Document Number'},
+                'dateOfBirth': {
+                    'value': '1980-01-01',
+                    'label': 'Day of Birth',
+                    'format': 'date',
+                },
+                'expirationDate': {
+                    'value': '2030-12-31',
+                    'label': 'Date of Expiration',
+                    'format': 'date',
+                },
+                'curp': {'value': 'CURP', 'label': 'CURP'},
+                'address': {
+                    'value': 'Varsovia 36, 06600 CDMX',
+                    'label': 'Address',
+                },
+                'emissionDate': {
+                    'value': '2010-01-01',
+                    'label': 'Emission Date',
+                    'format': 'date',
+                },
+            },
+        }
+    ],
+    'hasProblem': False,
+    'computed': {'age': {'data': 100}},
+    'id': '5d9fb1f5bfbfac001a349bfb',
+    'metadata': {'name': 'First Last', 'dob': '1980-01-01'},
+}
+
+
+def scrub_sensitive_info(response: dict) -> dict:
+    response = scrub_access_token(response)
+    response = swap_verification_body(response)
+    return response
+
 
 def scrub_access_token(response: dict) -> dict:
     try:
@@ -27,11 +137,18 @@ def scrub_access_token(response: dict) -> dict:
     return response
 
 
+def swap_verification_body(response: dict) -> dict:
+    if b'curp' not in response['body']['string']:
+        return response
+    response['body']['string'] = json.dumps(VERIFICATION_RESP).encode('utf-8')
+    return response
+
+
 @pytest.fixture(scope='module')
 def vcr_config() -> dict:
     config = dict()
     config['filter_headers'] = [('Authorization', None)]
-    config['before_record_response'] = scrub_access_token
+    config['before_record_response'] = scrub_sensitive_info
     return config
 
 

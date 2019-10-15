@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import BinaryIO, Union
+from typing import BinaryIO, List, Optional, Union
 
 
 class SerializableEnum(str, Enum):
@@ -24,6 +24,24 @@ class ValidationType(SerializableEnum):
     national_id = 'national-id'
     passport = 'passport'
     proof_of_residency = 'proof-of-residency'
+
+
+@dataclass
+class VerificationDocumentStep:
+    id: str
+    status: int
+    error: Optional[str]
+    data: Optional[dict] = field(default_factory=dict)
+
+
+@dataclass
+class VerificationDocument:
+    country: str
+    region: str
+    photos: list
+    steps: List[VerificationDocumentStep]
+    type: str
+    fields: dict
 
 
 @dataclass

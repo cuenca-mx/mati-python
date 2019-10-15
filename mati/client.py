@@ -3,7 +3,13 @@ from typing import ClassVar, Dict, Optional, Union
 
 from requests import Response, Session
 
-from .resources import AccessToken, Identity, Resource, UserValidationData
+from .resources import (
+    AccessToken,
+    Identity,
+    Resource,
+    UserValidationData,
+    Verification,
+)
 
 API_URL = 'https://api.getmati.com'
 
@@ -19,6 +25,7 @@ class Client:
     access_tokens: ClassVar = AccessToken
     identities: ClassVar = Identity
     user_validation_data: ClassVar = UserValidationData
+    verifications: ClassVar = Verification
 
     def __init__(
         self, api_key: Optional[str] = None, secret_key: Optional[str] = None

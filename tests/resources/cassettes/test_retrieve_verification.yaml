@@ -1,0 +1,114 @@
+interactions:
+- request:
+    body: grant_type=client_credentials&score=identity
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '44'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://api.getmati.com/oauth/token
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expires_in": 3600, "token_type":
+        "Bearer"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '193'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 15 Oct 2019 19:17:29 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - X-HTTP-Method-Override
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Powered-By:
+      - Express
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://api.getmati.com/api/v1/verifications/5d9fb1f5bfbfac001a349bfb
+  response:
+    body:
+      string: '{"expired": false, "steps": [], "documents": [{"country": "MX", "region":
+        "", "photos": ["https://media.getmati.com/media/xxx", "https://media.getmati.com/media/yyy"],
+        "steps": [{"error": null, "status": 200, "id": "template-matching"}, {"error":
+        null, "status": 200, "id": "mexican-curp-validation", "data": {"curp": "CURP",
+        "fullName": "LAST FIRST", "birthDate": "01/01/1980", "gender": "HOMBRE", "nationality":
+        "MEXICO", "surname": "LAST", "secondSurname": "", "name": "FIRST"}}, {"error":
+        null, "status": 200, "id": "document-reading", "data": {"fullName": {"value":
+        "FIRST LAST", "label": "Name", "sensitive": true}, "documentNumber": {"value":
+        "111", "label": "Document Number"}, "dateOfBirth": {"value": "1980-01-01",
+        "label": "Day of Birth", "format": "date"}, "expirationDate": {"value": "2030-12-31",
+        "label": "Date of Expiration", "format": "date"}, "curp": {"value": "CURP",
+        "label": "CURP"}, "address": {"value": "Varsovia 36, 06600 CDMX", "label":
+        "Address"}, "emissionDate": {"value": "2010-01-01", "label": "Emission Date",
+        "format": "date"}}}, {"error": null, "status": 200, "id": "alteration-detection"},
+        {"error": null, "status": 200, "id": "watchlists"}], "type": "national-id",
+        "fields": {"fullName": {"value": "FIRST LAST", "label": "Name", "sensitive":
+        true}, "documentNumber": {"value": "111", "label": "Document Number"}, "dateOfBirth":
+        {"value": "1980-01-01", "label": "Day of Birth", "format": "date"}, "expirationDate":
+        {"value": "2030-12-31", "label": "Date of Expiration", "format": "date"},
+        "curp": {"value": "CURP", "label": "CURP"}, "address": {"value": "Varsovia
+        36, 06600 CDMX", "label": "Address"}, "emissionDate": {"value": "2010-01-01",
+        "label": "Emission Date", "format": "date"}}}], "hasProblem": false, "computed":
+        {"age": {"data": 100}}, "id": "5d9fb1f5bfbfac001a349bfb", "metadata": {"name":
+        "First Last", "dob": "1980-01-01"}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2380'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 15 Oct 2019 19:17:29 GMT
+      Etag:
+      - W/"94c-y4otnFQOugV/PpUWyU6DRP1qnJM"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Powered-By:
+      - Express
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
