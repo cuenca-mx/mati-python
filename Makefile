@@ -23,9 +23,10 @@ format:
 		$(black)
 
 lint:
-		flake8 $(PROJECT) tests setup.py
 		$(isort) --check-only
 		$(black) --check
+		flake8 $(PROJECT) tests setup.py
+		mypy $(PROJECT) tests
 
 clean:
 		find . -name '*.pyc' -exec rm -f {} +

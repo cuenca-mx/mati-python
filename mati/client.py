@@ -1,5 +1,5 @@
 import os
-from typing import ClassVar, Dict, Optional, Union
+from typing import Any, ClassVar, Dict, Optional, Tuple, Union
 
 from requests import Response, Session
 
@@ -18,7 +18,7 @@ class Client:
 
     base_url: ClassVar[str] = API_URL
     session: Session
-    basic_auth_creds: tuple
+    basic_auth_creds: Tuple[str, str]
     bearer_tokens: Dict[Union[None, str], AccessToken]
 
     # resources
@@ -40,16 +40,18 @@ class Client:
     def get_valid_bearer_token(
         self, score: Optional[str] = None
     ) -> AccessToken:
-        bearer_token = self.bearer_tokens.get(score)
-        if bearer_token is None or bearer_token.expired:
-            bearer_token = self.access_tokens.create(score)  # renew token
-            self.bearer_tokens[score] = bearer_token
-        return bearer_token
+        try:
+            expired = self.bearer_tokens[score].expired
+        except KeyError:
+            expired = True
+        if expired:  # renew token
+            self.bearer_tokens[score] = self.access_tokens.create(score)
+        return self.bearer_tokens[score]
 
-    def get(self, endpoint: str, **kwargs) -> dict:
+    def get(self, endpoint: str, **kwargs: Any) -> Dict[str, Any]:
         return self.request('get', endpoint, **kwargs)
 
-    def post(self, endpoint: str, **kwargs) -> dict:
+    def post(self, endpoint: str, **kwargs: Any) -> Dict[str, Any]:
         return self.request('post', endpoint, **kwargs)
 
     def request(
@@ -58,8 +60,8 @@ class Client:
         endpoint: str,
         auth: Union[str, AccessToken, None] = None,
         token_score: Optional[str] = None,
-        **kwargs,
-    ) -> dict:
+        **kwargs: Any,
+    ) -> Dict[str, Any]:
         url = self.base_url + endpoint
         auth = auth or self.get_valid_bearer_token(token_score)
         headers = dict(Authorization=str(auth))
@@ -68,7 +70,7 @@ class Client:
         return response.json()
 
     @staticmethod
-    def _check_response(response: Response):
+    def _check_response(response: Response) -> None:
         if response.ok:
             return
         response.raise_for_status()

@@ -1,7 +1,8 @@
 import json
-from typing import ClassVar, List
+from typing import Any, ClassVar, Dict, List
 
-from ..types import UserValidationFile
+from mati.types import UserValidationFile
+
 from .base import Resource
 
 
@@ -25,7 +26,7 @@ class UserValidationData(Resource):
     @classmethod
     def upload(
         cls, identity_id: str, user_validation_files: List[UserValidationFile]
-    ) -> List[dict]:
+    ) -> List[Dict[str, Any]]:
         endpoint = cls._endpoint.format(identity_id=identity_id)
         files_metadata = []
         files_with_types = []

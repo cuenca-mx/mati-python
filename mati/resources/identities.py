@@ -39,7 +39,7 @@ class Identity(Resource):
         resp['id'] = resp.pop('_id')
         return cls(**resp)
 
-    def refresh(self):
+    def refresh(self) -> None:
         identity = self.retrieve(self.id)
         for k, v in identity.__dict__.items():
             setattr(self, k, v)

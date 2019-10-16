@@ -1,5 +1,6 @@
 import json
 from json import JSONDecodeError
+from typing import Generator
 
 import pytest
 
@@ -148,18 +149,18 @@ def swap_verification_body(response: dict) -> dict:
 def vcr_config() -> dict:
     config = dict()
     config['filter_headers'] = [('Authorization', None)]
-    config['before_record_response'] = scrub_sensitive_info
+    config['before_record_response'] = scrub_sensitive_info  # type: ignore
     return config
 
 
 @pytest.fixture
-def client():
+def client() -> Generator:
     # using credentials from env
     yield Client()
 
 
 @pytest.fixture
-def identity(client):
+def identity(client: Client) -> Generator:
     yield client.identities.create(
         nombres='Georg Wilhelm',
         primer_apellido='Friedrich',
