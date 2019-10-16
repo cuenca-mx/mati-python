@@ -8,6 +8,7 @@ from mati import Client
 
 VERIFICATION_RESP = {
     'expired': False,
+    'identity': {'status': 'verified'},
     'steps': [],
     'documents': [
         {
