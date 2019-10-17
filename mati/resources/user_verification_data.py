@@ -1,7 +1,7 @@
 import json
 from typing import Any, ClassVar, Dict, List
 
-from mati.types import UserValidationFile
+from mati.types import UserValidationFile, ValidationInputType
 
 from .base import Resource
 
@@ -31,19 +31,27 @@ class UserValidationData(Resource):
         files_metadata = []
         files_with_types = []
         for file in user_validation_files:
-            files_metadata.append(
-                dict(
-                    inputType=file.input_type,
-                    group=file.group,
-                    data=dict(
-                        type=file.validation_type,
-                        country=file.country,
-                        page=file.page,
-                        filename=file.filename,
-                        region=file.region,
-                    ),
+            if file.input_type != ValidationInputType.selfie_video:
+                files_metadata.append(
+                    dict(
+                        inputType=file.input_type,
+                        group=file.group,
+                        data=dict(
+                            type=file.validation_type,
+                            country=file.country,
+                            page=file.page,
+                            filename=file.filename,
+                            region=file.region,
+                        ),
+                    )
                 )
-            )
+            else:
+                files_metadata.append(
+                    dict(
+                        inputType=file.input_type,
+                        data=dict(filename=file.filename),
+                    )
+                )
             files_with_types.append(
                 (get_file_type(file.input_type), file.content)
             )

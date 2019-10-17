@@ -49,8 +49,8 @@ class UserValidationFile:
     filename: str
     content: BinaryIO
     input_type: Union[str, ValidationInputType]
-    validation_type: Union[str, ValidationType]
-    country: str  # alpha-2 code: https://www.iban.com/country-codes
+    validation_type: Union[str, ValidationType] = ''
+    country: str = ''  # alpha-2 code: https://www.iban.com/country-codes
     region: str = ''  # 2-digit US State code (if applicable)
     group: int = 0
     page: Union[str, PageType] = PageType.front
