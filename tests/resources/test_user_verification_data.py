@@ -1,4 +1,5 @@
 import os
+from contextlib import ExitStack
 
 import pytest
 
@@ -20,9 +21,10 @@ def test_ine_and_liveness_upload(identity: Identity):
     filepath_front = os.path.join(FIXTURE_DIR, 'ine_front.jpg')
     filepath_back = os.path.join(FIXTURE_DIR, 'ine_back.jpg')
     filepath_live = os.path.join(FIXTURE_DIR, 'liveness.MOV')
-    with open(filepath_front, 'rb') as front, open(
-        filepath_back, 'rb'
-    ) as back, open(filepath_live, 'rb') as live:
+    with ExitStack() as stack:
+        front = stack.enter_context(open(filepath_front, 'rb'))
+        back = stack.enter_context(open(filepath_back, 'rb'))
+        live = stack.enter_context(open(filepath_live, 'rb'))
         user_validation_file = UserValidationFile(
             filename='ine_front.jpg',
             content=front,
