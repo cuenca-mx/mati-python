@@ -30,7 +30,7 @@ class ValidationType(SerializableEnum):
 class VerificationDocumentStep:
     id: str
     status: int
-    error: Optional[str]
+    error: Optional[str] = None
     data: Optional[Dict] = field(default_factory=dict)
 
 
