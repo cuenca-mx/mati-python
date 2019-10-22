@@ -28,7 +28,7 @@ class UserValidationData(Resource):
     def _append_file(
         files_metadata: List[Dict[str, Any]], file: UserValidationFile
     ):
-        if file.input_type != ValidationInputType.selfie_video:
+        if file.input_type == ValidationInputType.document_photo:
             files_metadata.append(
                 dict(
                     inputType=file.input_type,
