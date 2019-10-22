@@ -41,7 +41,7 @@ class VerificationDocument:
     photos: List[str]
     steps: List[VerificationDocumentStep]
     type: str
-    fields: dict
+    fields: Optional[dict] = None
 
 
 @dataclass
