@@ -5,6 +5,8 @@ from typing import ClassVar, Optional
 from ..auth import basic_auth_str, bearer_auth_str
 from .base import Resource
 
+EXPIRATION_BUFFER = 30  # seconds. Gives us a buffer from expires_in
+
 
 @dataclass
 class AccessToken(Resource):
@@ -35,7 +37,9 @@ class AccessToken(Resource):
             expires_in = resp['expiresIn']
         except KeyError:
             expires_in = resp['expires_in']
-        expires_at = dt.datetime.now() + dt.timedelta(seconds=expires_in)
+        expires_at = dt.datetime.now() + dt.timedelta(
+            seconds=expires_in - EXPIRATION_BUFFER
+        )
         try:
             user_id = resp['payload']['user']['_id']
         except KeyError:
