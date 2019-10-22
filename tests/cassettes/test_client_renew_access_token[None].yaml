@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.2.8
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -28,9 +28,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 15 Oct 2019 13:04:03 GMT
+      - Tue, 22 Oct 2019 23:26:13 GMT
       X-Request-Id:
-      - e6380482-5354-405e-9af9-0388ee3e10c1
+      - 9bee3daf-3599-49d1-9821-e5d209513387
     status:
       code: 200
       message: OK

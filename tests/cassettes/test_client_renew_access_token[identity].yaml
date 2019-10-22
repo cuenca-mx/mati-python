@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.2.8
     method: POST
     uri: https://api.getmati.com/oauth/token
   response:
@@ -32,7 +32,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 15 Oct 2019 13:04:03 GMT
+      - Tue, 22 Oct 2019 23:26:14 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:

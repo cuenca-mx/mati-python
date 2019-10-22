@@ -10,6 +10,7 @@ from .resources import (
     UserValidationData,
     Verification,
 )
+from .version import __version__ as client_version
 
 API_URL = 'https://api.getmati.com'
 
@@ -17,9 +18,10 @@ API_URL = 'https://api.getmati.com'
 class Client:
 
     base_url: ClassVar[str] = API_URL
-    session: Session
     basic_auth_creds: Tuple[str, str]
     bearer_tokens: Dict[Union[None, str], AccessToken]
+    headers: Dict[str, str]
+    session: Session
 
     # resources
     access_tokens: ClassVar = AccessToken
@@ -31,6 +33,7 @@ class Client:
         self, api_key: Optional[str] = None, secret_key: Optional[str] = None
     ):
         self.session = Session()
+        self.headers = {'User-Agent': f'mati-python/{client_version}'}
         api_key = api_key or os.environ['MATI_API_KEY']
         secret_key = secret_key or os.environ['MATI_SECRET_KEY']
         self.basic_auth_creds = (api_key, secret_key)
@@ -64,7 +67,7 @@ class Client:
     ) -> Dict[str, Any]:
         url = self.base_url + endpoint
         auth = auth or self.get_valid_bearer_token(token_score)
-        headers = dict(Authorization=str(auth))
+        headers = {**self.headers, **dict(Authorization=str(auth))}
         response = self.session.request(method, url, headers=headers, **kwargs)
         self._check_response(response)
         return response.json()

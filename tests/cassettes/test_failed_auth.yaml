@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.2.8
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -27,9 +27,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 08 Oct 2019 21:23:36 GMT
+      - Tue, 22 Oct 2019 23:26:14 GMT
       X-Request-Id:
-      - 7a533161-8245-4b1f-ab14-0d455d1776ee
+      - aafa635c-7e04-4a58-932a-d72df18f7a8d
     status:
       code: 401
       message: Unauthorized
