@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 
 from ..types import VerificationDocument, VerificationDocumentStep
 from .base import Resource
@@ -14,10 +14,10 @@ class Verification(Resource):
     expired: bool
     steps: list
     documents: List[VerificationDocument]
-    hasProblem: bool
-    computed: Dict[str, Any]
     metadata: Dict[str, Dict[str, str]]
     identity: Dict[str, str] = field(default_factory=dict)
+    hasProblem: Optional[bool] = None
+    computed: Optional[Dict[str, Any]] = None
 
     @classmethod
     def retrieve(cls, verification_id: str) -> 'Verification':
