@@ -163,6 +163,7 @@ def client() -> Generator:
 @pytest.fixture
 def identity(client: Client) -> Generator:
     yield client.identities.create(
+        client=client,
         nombres='Georg Wilhelm',
         primer_apellido='Friedrich',
         segundo_apellido='Hegel',

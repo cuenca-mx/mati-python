@@ -52,7 +52,10 @@ class UserValidationData(Resource):
 
     @classmethod
     def upload(
-        cls, identity_id: str, user_validation_files: List[UserValidationFile]
+        cls,
+        identity_id: str,
+        user_validation_files: List[UserValidationFile],
+        client=None,
     ) -> List[Dict[str, Any]]:
         endpoint = cls._endpoint.format(identity_id=identity_id)
         files_metadata: List[Dict[str, Any]] = []
@@ -60,7 +63,7 @@ class UserValidationData(Resource):
         for file in user_validation_files:
             cls._append_file(files_metadata, file)
             files_with_types.append((get_file_type(file), file.content))
-        resp = cls._client.post(
+        resp = client.post(
             endpoint,
             data=dict(inputs=json.dumps(files_metadata)),
             files=files_with_types,
