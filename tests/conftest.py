@@ -156,13 +156,13 @@ def vcr_config() -> dict:
 
 @pytest.fixture
 def client() -> Generator:
-    # using credentials from env
-    yield Client()
+    yield Client('api_key', 'secret_key')
 
 
 @pytest.fixture
 def identity(client: Client) -> Generator:
     yield client.identities.create(
+        client=client,
         nombres='Georg Wilhelm',
         primer_apellido='Friedrich',
         segundo_apellido='Hegel',

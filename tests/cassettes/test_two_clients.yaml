@@ -1,0 +1,206 @@
+interactions:
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - mati-python/0.2.9
+    method: POST
+    uri: https://api.getmati.com/oauth
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '504'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:48 GMT
+      X-Request-Id:
+      - fba06368-b340-4386-8174-77cf8a1d428c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"metadata": {"nombres": "Georg Wilhelm", "primer_apellido": "Friedrich",
+      "segundo_apellido": "Hegel", "dob": "1770-08-27"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '124'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - mati-python/0.2.9
+    method: POST
+    uri: https://api.getmati.com/v2/identities
+  response:
+    body:
+      string: '{"_id":"5e138a7016dc68001b379e13","alive":null,"dateCreated":"2020-01-06T19:28:48.248Z","dateUpdated":"2020-01-06T19:28:48.248Z","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:48 GMT
+      X-Request-Id:
+      - 5d621f09-0bae-4678-bcf6-e24f2b6f6aa1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - mati-python/0.2.9
+    method: POST
+    uri: https://api.getmati.com/oauth
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '413'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:48 GMT
+      X-Request-Id:
+      - 78a64d42-ea9a-4216-9abb-64f93aef5f72
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"metadata": {"nombres": "Georg Wilhelm", "primer_apellido": "Friedrich",
+      "segundo_apellido": "Hegel", "dob": "1770-08-27"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '124'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - mati-python/0.2.9
+    method: POST
+    uri: https://api.getmati.com/v2/identities
+  response:
+    body:
+      string: '{"_id":"5e138a7016dc68001b379e1a","alive":null,"dateCreated":"2020-01-06T19:28:48.778Z","dateUpdated":"2020-01-06T19:28:48.778Z","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5e00fdf522f92f001b69993c"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:48 GMT
+      X-Request-Id:
+      - ef550cc0-6d92-464c-88b4-6bc860292634
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - mati-python/0.2.9
+    method: GET
+    uri: https://api.getmati.com/v2/identities/5e138a7016dc68001b379e13
+  response:
+    body:
+      string: '{"_id":"5e138a7016dc68001b379e13","alive":null,"dateCreated":"2020-01-06T19:28:48.248Z","dateUpdated":"2020-01-06T19:28:48.248Z","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:48 GMT
+      X-Request-Id:
+      - f003a554-315f-4a72-9a27-5c475e6b7b9a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - mati-python/0.2.9
+    method: GET
+    uri: https://api.getmati.com/v2/identities/5e138a7016dc68001b379e1a
+  response:
+    body:
+      string: '{"_id":"5e138a7016dc68001b379e1a","alive":null,"dateCreated":"2020-01-06T19:28:48.778Z","dateUpdated":"2020-01-06T19:28:48.778Z","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5e00fdf522f92f001b69993c"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 06 Jan 2020 19:28:49 GMT
+      X-Request-Id:
+      - 3369b285-4e7a-42f0-a75b-19c1ab3f9ae7
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -48,7 +48,9 @@ class Client:
         except KeyError:
             expired = True
         if expired:  # renew token
-            self.bearer_tokens[score] = self.access_tokens.create(score)
+            self.bearer_tokens[score] = self.access_tokens.create(
+                score, client=self
+            )
         return self.bearer_tokens[score]
 
     def get(self, endpoint: str, **kwargs: Any) -> Dict[str, Any]:

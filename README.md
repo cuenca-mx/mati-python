@@ -16,7 +16,7 @@ pip install mati
 
 ```
 make venv
-source venv/bin/active
+source venv/bin/activate
 make test
 ```
 

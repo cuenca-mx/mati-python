@@ -1,3 +1,4 @@
+import datetime as dt
 from dataclasses import dataclass, field
 from typing import Any, ClassVar, Dict, List, Optional
 
@@ -18,11 +19,13 @@ class Verification(Resource):
     identity: Dict[str, str] = field(default_factory=dict)
     hasProblem: Optional[bool] = None
     computed: Optional[Dict[str, Any]] = None
+    obfuscatedAt: Optional[dt.datetime] = None
 
     @classmethod
-    def retrieve(cls, verification_id: str) -> 'Verification':
+    def retrieve(cls, verification_id: str, client=None) -> 'Verification':
+        client = client or cls._client
         endpoint = f'{cls._endpoint}/{verification_id}'
-        resp = cls._client.get(endpoint, token_score=cls._token_score)
+        resp = client.get(endpoint, token_score=cls._token_score)
         docs = []
         for doc in resp['documents']:
             doc['steps'] = [

@@ -22,16 +22,15 @@ class AccessToken(Resource):
     user_id: Optional[str]
 
     @classmethod
-    def create(cls, score: Optional[str] = None) -> 'AccessToken':
+    def create(cls, score: Optional[str] = None, client=None) -> 'AccessToken':
+        client = client or cls._client
         data = dict(grant_type='client_credentials')
         endpoint = cls._endpoint
         if score:
             data['score'] = score
             endpoint += '/token'
-        resp = cls._client.post(
-            endpoint,
-            data=data,
-            auth=basic_auth_str(*cls._client.basic_auth_creds),
+        resp = client.post(
+            endpoint, data=data, auth=basic_auth_str(*client.basic_auth_creds),
         )
         try:
             expires_in = resp['expiresIn']
