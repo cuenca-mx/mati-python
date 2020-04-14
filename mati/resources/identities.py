@@ -27,6 +27,7 @@ class Identity(Resource):
     facematchScore: Optional[float] = None
     photo: Optional[str] = None
     video: Optional[str] = None
+    flowId: Optional[str] = None
 
     @classmethod
     def create(cls, client=None, **metadata) -> 'Identity':
