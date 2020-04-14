@@ -54,7 +54,7 @@ interactions:
     uri: https://api.getmati.com/v2/identities
   response:
     body:
-      string: '{"_id":"5d9d0809bfbfac001a348632","alive":null,"dateCreated":"2019-10-08T22:04:57.729Z","dateUpdated":"2019-10-08T22:04:57.729Z","metadata":{"nombres":"Georg
+      string: '{"_id":"5d9d0809bfbfac001a348632","alive":null,"dateCreated":"2019-10-08T22:04:57.729Z","dateUpdated":"2019-10-08T22:04:57.729Z","flowId":"5e9576d9ac2c70001ca9f092","metadata":{"nombres":"Georg
         Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
     headers:
       Connection:
