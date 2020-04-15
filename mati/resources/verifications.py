@@ -20,6 +20,7 @@ class Verification(Resource):
     hasProblem: Optional[bool] = None
     computed: Optional[Dict[str, Any]] = None
     obfuscatedAt: Optional[dt.datetime] = None
+    flow: Optional[Dict[str, Any]] = None
 
     @classmethod
     def retrieve(cls, verification_id: str, client=None) -> 'Verification':
