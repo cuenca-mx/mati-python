@@ -2,9 +2,11 @@ from typing import ClassVar, Optional
 
 import iso8601
 
+from ..client import Client
+
 
 class Resource:
-    _client: ClassVar['mati.Client']  # type: ignore
+    _client: ClassVar['Client']  # type: ignore
     _endpoint: ClassVar[str]
     _token_score: ClassVar[Optional[str]] = None
 
