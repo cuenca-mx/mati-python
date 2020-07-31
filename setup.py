@@ -4,16 +4,6 @@ from setuptools import find_packages, setup
 
 version = SourceFileLoader('version', 'mati/version.py').load_module()
 
-test_requires = [
-    'pytest',
-    'pytest-vcr',
-    'pycodestyle',
-    'pytest-cov',
-    'black',
-    'isort[pipfile]',
-    'flake8',
-    'mypy',
-]
 
 with open('README.md', 'r') as f:
     long_description = f.read()
@@ -36,9 +26,6 @@ setup(
         'requests>=2.22.0,<3.0.0',
         'iso8601>=0.1.12,<0.2.0',
     ],
-    setup_requires=['pytest-runner'],
-    tests_require=test_requires,
-    extras_require=dict(test=test_requires),
     classifiers=[
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
