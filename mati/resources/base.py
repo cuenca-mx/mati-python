@@ -1,5 +1,5 @@
-from typing import ClassVar, Dict, Optional, Union
 from dataclasses import dataclass, fields
+from typing import ClassVar, Dict, Optional, Union
 
 import iso8601
 

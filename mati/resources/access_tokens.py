@@ -30,7 +30,9 @@ class AccessToken(Resource):
             data['score'] = score
             endpoint += '/token'
         resp = client.post(
-            endpoint, data=data, auth=basic_auth_str(*client.basic_auth_creds),
+            endpoint,
+            data=data,
+            auth=basic_auth_str(*client.basic_auth_creds),
         )
         try:
             expires_in = resp['expiresIn']
