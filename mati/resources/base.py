@@ -10,6 +10,10 @@ class Resource:
     _endpoint: ClassVar[str]
     _token_score: ClassVar[Optional[str]] = None
 
+    # purely for MyPy
+    def __init__(self, **_):  # pragma: no cover
+        ...
+
     def __post_init__(self) -> None:
         for attr, value in self.__dict__.items():
             if attr.startswith('date'):

@@ -45,13 +45,11 @@ class AccessToken(Resource):
             user_id = resp['payload']['user']['_id']
         except KeyError:
             user_id = None
-        return cls._from_dict(
-            dict(
-                user_id=user_id,
-                token=resp['access_token'],
-                expires_at=expires_at,
-                score=score,
-            )
+        return cls(
+            user_id=user_id,
+            token=resp['access_token'],
+            expires_at=expires_at,
+            score=score,
         )
 
     def __str__(self) -> str:

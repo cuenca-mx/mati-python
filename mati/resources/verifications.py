@@ -1,6 +1,6 @@
 import datetime as dt
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, cast
 
 from ..types import VerificationDocument, VerificationDocumentStep
 from .base import Resource
@@ -34,4 +34,5 @@ class Verification(Resource):
             ]
             docs.append(VerificationDocument(**doc))
         resp['documents'] = docs
-        return cls._from_dict(resp)
+
+        return cast('Verification', cls._from_dict(resp))
