@@ -34,4 +34,4 @@ class Verification(Resource):
             ]
             docs.append(VerificationDocument(**doc))
         resp['documents'] = docs
-        return cls(**resp)
+        return cls._from_dict(resp)

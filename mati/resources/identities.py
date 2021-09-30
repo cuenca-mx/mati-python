@@ -35,7 +35,7 @@ class Identity(Resource):
         client = client or cls._client
         resp = client.post(cls._endpoint, json=dict(metadata=metadata))
         resp['id'] = resp.pop('_id')
-        return cls(**resp)
+        return cls._from_dict(resp)
 
     @classmethod
     def retrieve(cls, identity_id: str, client=None) -> 'Identity':
@@ -43,7 +43,7 @@ class Identity(Resource):
         endpoint = f'{cls._endpoint}/{identity_id}'
         resp = client.get(endpoint)
         resp['id'] = resp.pop('_id')
-        return cls(**resp)
+        return cls._from_dict(resp)
 
     def refresh(self, client=None) -> None:
         client = client or self._client
