@@ -28,7 +28,6 @@ class AccessToken(Resource):
         endpoint = cls._endpoint
         if score:
             data['score'] = score
-            endpoint += '/token'
         resp = client.post(
             endpoint,
             data=data,
