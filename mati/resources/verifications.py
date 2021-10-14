@@ -8,7 +8,7 @@ from .base import Resource
 
 @dataclass
 class Verification(Resource):
-    _endpoint: ClassVar[str] = '/api/v1/verifications'
+    _endpoint: ClassVar[str] = '/api/v2/verifications'
     _token_score: ClassVar[str] = 'identity'
 
     id: str
