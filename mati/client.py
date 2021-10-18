@@ -19,7 +19,7 @@ class Client:
 
     base_url: ClassVar[str] = API_URL
     basic_auth_creds: Tuple[str, str]
-    bearer_tokens: Dict[Union[None, str], AccessToken]
+    bearer_token: Optional[AccessToken]
     headers: Dict[str, str]
     session: Session
 
@@ -37,21 +37,16 @@ class Client:
         api_key = api_key or os.environ['MATI_API_KEY']
         secret_key = secret_key or os.environ['MATI_SECRET_KEY']
         self.basic_auth_creds = (api_key, secret_key)
-        self.bearer_tokens = {}
+        self.bearer_token = None
         Resource._client = self
 
-    def get_valid_bearer_token(
-        self, score: Optional[str] = None
-    ) -> AccessToken:
-        try:
-            expired = self.bearer_tokens[score].expired
-        except KeyError:
-            expired = True
-        if expired:  # renew token
-            self.bearer_tokens[score] = self.access_tokens.create(
-                score, client=self
-            )
-        return self.bearer_tokens[score]
+    def get_valid_bearer_token(self) -> Optional[AccessToken]:
+        expired_or_none = (
+            self.bearer_token.expired if self.bearer_token else True
+        )
+        if expired_or_none:  # renew token
+            self.bearer_token = self.access_tokens.create(client=self)
+        return self.bearer_token
 
     def get(self, endpoint: str, **kwargs: Any) -> Dict[str, Any]:
         return self.request('get', endpoint, **kwargs)
@@ -64,11 +59,10 @@ class Client:
         method: str,
         endpoint: str,
         auth: Union[str, AccessToken, None] = None,
-        token_score: Optional[str] = None,
         **kwargs: Any,
     ) -> Dict[str, Any]:
         url = self.base_url + endpoint
-        auth = auth or self.get_valid_bearer_token(token_score)
+        auth = auth or self.get_valid_bearer_token()
         headers = {**self.headers, **dict(Authorization=str(auth))}
         response = self.session.request(method, url, headers=headers, **kwargs)
         self._check_response(response)

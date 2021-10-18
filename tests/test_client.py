@@ -5,13 +5,12 @@ from mati import Client
 
 
 @pytest.mark.vcr
-@pytest.mark.parametrize('score', [None, 'identity'])
-def test_client_renew_access_token(score):
+def test_client_renew_access_token():
     client = Client('api_key', 'secret_key')
-    assert client.bearer_tokens.get(score) is None
-    client.get_valid_bearer_token(score)
-    assert not client.bearer_tokens[score].expired
-    assert client.bearer_tokens[score] == client.get_valid_bearer_token(score)
+    assert client.bearer_token is None
+    client.get_valid_bearer_token()
+    assert not client.bearer_token.expired
+    assert client.bearer_token == client.get_valid_bearer_token()
 
 
 @pytest.mark.vcr
