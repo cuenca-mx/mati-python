@@ -8,7 +8,7 @@ from .base import Resource
 
 @dataclass
 class Verification(Resource):
-    _endpoint: ClassVar[str] = '/api/v2/verifications'
+    _endpoint: ClassVar[str] = '/v2/verifications'
 
     id: str
     expired: bool
