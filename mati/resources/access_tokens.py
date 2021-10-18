@@ -18,16 +18,13 @@ class AccessToken(Resource):
 
     token: str
     expires_at: dt.datetime
-    score: Optional[str]
     user_id: Optional[str]
 
     @classmethod
-    def create(cls, score: Optional[str] = None, client=None) -> 'AccessToken':
+    def create(cls, client=None) -> 'AccessToken':
         client = client or cls._client
         data = dict(grant_type='client_credentials')
         endpoint = cls._endpoint
-        if score:
-            data['score'] = score
         resp = client.post(
             endpoint,
             data=data,
@@ -48,7 +45,6 @@ class AccessToken(Resource):
             user_id=user_id,
             token=resp['access_token'],
             expires_at=expires_at,
-            score=score,
         )
 
     def __str__(self) -> str:

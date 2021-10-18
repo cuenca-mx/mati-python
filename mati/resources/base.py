@@ -1,5 +1,5 @@
 from dataclasses import dataclass, fields
-from typing import ClassVar, Dict, Optional, Union
+from typing import ClassVar, Dict, Union
 
 import iso8601
 
@@ -8,7 +8,6 @@ import iso8601
 class Resource:
     _client: ClassVar['mati.Client']  # type: ignore
     _endpoint: ClassVar[str]
-    _token_score: ClassVar[Optional[str]] = None
 
     # purely for MyPy
     def __init__(self, **_):  # pragma: no cover

@@ -9,7 +9,6 @@ from .base import Resource
 @dataclass
 class Verification(Resource):
     _endpoint: ClassVar[str] = '/api/v2/verifications'
-    _token_score: ClassVar[str] = 'identity'
 
     id: str
     expired: bool
@@ -26,7 +25,7 @@ class Verification(Resource):
     def retrieve(cls, verification_id: str, client=None) -> 'Verification':
         client = client or cls._client
         endpoint = f'{cls._endpoint}/{verification_id}'
-        resp = client.get(endpoint, token_score=cls._token_score)
+        resp = client.get(endpoint)
         docs = []
         for doc in resp['documents']:
             doc['steps'] = [
