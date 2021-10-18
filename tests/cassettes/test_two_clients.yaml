@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - mati-python/0.2.9
+      - mati-python/0.3.1.dev5
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -21,16 +21,46 @@ interactions:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
         {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '504'
+      - '641'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jan 2020 19:28:48 GMT
+      - Mon, 18 Oct 2021 17:14:40 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - fba06368-b340-4386-8174-77cf8a1d428c
+      - 3998de69-20f7-486f-a5c7-ba942b611e6d
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -49,24 +79,54 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - mati-python/0.2.9
+      - mati-python/0.3.1.dev5
     method: POST
     uri: https://api.getmati.com/v2/identities
   response:
     body:
-      string: '{"_id":"5e138a7016dc68001b379e13","alive":null,"dateCreated":"2020-01-06T19:28:48.248Z","dateUpdated":"2020-01-06T19:28:48.248Z","metadata":{"nombres":"Georg
+      string: '{"_id":"616dab801a3aaf001c50424a","alive":null,"dateCreated":"2021-10-18T17:14:40.703Z","dateUpdated":"2021-10-18T17:14:40.703Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
         Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '297'
+      - '373'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jan 2020 19:28:48 GMT
+      - Mon, 18 Oct 2021 17:14:40 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 5d621f09-0bae-4678-bcf6-e24f2b6f6aa1
+      - aab9cd6c-a696-4430-8fe0-fb0b5be0adf5
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -84,7 +144,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - mati-python/0.2.9
+      - mati-python/0.3.1.dev5
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -92,16 +152,46 @@ interactions:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
         {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '413'
+      - '641'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jan 2020 19:28:48 GMT
+      - Mon, 18 Oct 2021 17:14:41 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 78a64d42-ea9a-4216-9abb-64f93aef5f72
+      - b57d0dcb-03f2-48b1-8904-557e1ef830c0
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -120,55 +210,54 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - mati-python/0.2.9
+      - mati-python/0.3.1.dev5
     method: POST
     uri: https://api.getmati.com/v2/identities
   response:
     body:
-      string: '{"_id":"5e138a7016dc68001b379e1a","alive":null,"dateCreated":"2020-01-06T19:28:48.778Z","dateUpdated":"2020-01-06T19:28:48.778Z","metadata":{"nombres":"Georg
-        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5e00fdf522f92f001b69993c"}'
-    headers:
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '297'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Mon, 06 Jan 2020 19:28:48 GMT
-      X-Request-Id:
-      - ef550cc0-6d92-464c-88b4-6bc860292634
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - mati-python/0.2.9
-    method: GET
-    uri: https://api.getmati.com/v2/identities/5e138a7016dc68001b379e13
-  response:
-    body:
-      string: '{"_id":"5e138a7016dc68001b379e13","alive":null,"dateCreated":"2020-01-06T19:28:48.248Z","dateUpdated":"2020-01-06T19:28:48.248Z","metadata":{"nombres":"Georg
+      string: '{"_id":"616dab81e574f0001c2fc8e7","alive":null,"dateCreated":"2021-10-18T17:14:41.232Z","dateUpdated":"2021-10-18T17:14:41.232Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
         Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '297'
+      - '373'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jan 2020 19:28:48 GMT
+      - Mon, 18 Oct 2021 17:14:41 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - f003a554-315f-4a72-9a27-5c475e6b7b9a
+      - 625cb7ea-d2c4-4f59-aeff-7b046bc3e5eb
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -182,24 +271,115 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - mati-python/0.2.9
+      - mati-python/0.3.1.dev5
     method: GET
-    uri: https://api.getmati.com/v2/identities/5e138a7016dc68001b379e1a
+    uri: https://api.getmati.com/v2/identities/616dab801a3aaf001c50424a
   response:
     body:
-      string: '{"_id":"5e138a7016dc68001b379e1a","alive":null,"dateCreated":"2020-01-06T19:28:48.778Z","dateUpdated":"2020-01-06T19:28:48.778Z","metadata":{"nombres":"Georg
-        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5e00fdf522f92f001b69993c"}'
+      string: '{"_id":"616dab801a3aaf001c50424a","alive":null,"dateCreated":"2021-10-18T17:14:40.703Z","dateUpdated":"2021-10-18T17:14:40.703Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '297'
+      - '373'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 06 Jan 2020 19:28:49 GMT
+      - Mon, 18 Oct 2021 17:14:41 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 3369b285-4e7a-42f0-a75b-19c1ab3f9ae7
+      - ef999068-9954-41b9-8a3e-e5d4798909d0
+      X-Xss-Protection:
+      - '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - mati-python/0.3.1.dev5
+    method: GET
+    uri: https://api.getmati.com/v2/identities/616dab81e574f0001c2fc8e7
+  response:
+    body:
+      string: '{"_id":"616dab81e574f0001c2fc8e7","alive":null,"dateCreated":"2021-10-18T17:14:41.232Z","dateUpdated":"2021-10-18T17:14:41.232Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
+        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '373'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 18 Oct 2021 17:14:41 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - a43900a3-611c-4636-816b-663509640807
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK

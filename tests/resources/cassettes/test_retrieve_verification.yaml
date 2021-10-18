@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: grant_type=client_credentials&score=identity
+    body: grant_type=client_credentials
     headers:
       Accept:
       - '*/*'
@@ -9,42 +9,58 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '44'
+      - '29'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.3.1.dev5
     method: POST
-    uri: https://api.getmati.com/oauth/token
+    uri: https://api.getmati.com/oauth
   response:
     body:
-      string: '{"access_token": "ACCESS_TOKEN", "expires_in": 3600, "token_type":
-        "Bearer"}'
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       Cache-Control:
-      - no-cache, no-store
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '193'
+      - '641'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 15 Oct 2019 19:17:29 GMT
+      - Mon, 18 Oct 2021 17:17:33 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
       Pragma:
       - no-cache
+      Referrer-Policy:
+      - no-referrer
       Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-      Vary:
-      - X-HTTP-Method-Override
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
-      X-Powered-By:
-      - Express
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 8b446f89-4641-4dd9-9e2a-9b3f1c8022e8
       X-Xss-Protection:
-      - 1; mode=block
+      - '1'
     status:
       code: 200
       message: OK
@@ -58,56 +74,77 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.3.1.dev5
     method: GET
-    uri: https://api.getmati.com/api/v1/verifications/5d9fb1f5bfbfac001a349bfb
+    uri: https://api.getmati.com/v2/verifications/5d9fb1f5bfbfac001a349bfb
   response:
     body:
-      string: '{"expired": false, "steps": [], "documents": [{"country": "MX", "region":
-        "", "photos": ["https://media.getmati.com/media/xxx", "https://media.getmati.com/media/yyy"],
-        "steps": [{"error": null, "status": 200, "id": "template-matching"}, {"error":
-        null, "status": 200, "id": "mexican-curp-validation", "data": {"curp": "CURP",
-        "fullName": "LAST FIRST", "birthDate": "01/01/1980", "gender": "HOMBRE", "nationality":
-        "MEXICO", "surname": "LAST", "secondSurname": "", "name": "FIRST"}}, {"error":
-        null, "status": 200, "id": "document-reading", "data": {"fullName": {"value":
-        "FIRST LAST", "label": "Name", "sensitive": true}, "documentNumber": {"value":
-        "111", "label": "Document Number"}, "dateOfBirth": {"value": "1980-01-01",
-        "label": "Day of Birth", "format": "date"}, "expirationDate": {"value": "2030-12-31",
-        "label": "Date of Expiration", "format": "date"}, "curp": {"value": "CURP",
-        "label": "CURP"}, "address": {"value": "Varsovia 36, 06600 CDMX", "label":
-        "Address"}, "emissionDate": {"value": "2010-01-01", "label": "Emission Date",
-        "format": "date"}}}, {"error": null, "status": 200, "id": "alteration-detection"},
-        {"error": null, "status": 200, "id": "watchlists"}], "type": "national-id",
-        "fields": {"fullName": {"value": "FIRST LAST", "label": "Name", "sensitive":
+      string: '{"expired": false, "identity": {"status": "verified"}, "flow": {"id":
+        "5e9576d9ac2c70001ca9f092", "name": "Default flow"}, "steps": [], "documents":
+        [{"country": "MX", "region": "", "photos": ["https://media.getmati.com/media/xxx",
+        "https://media.getmati.com/media/yyy"], "steps": [{"error": null, "status":
+        200, "id": "template-matching"}, {"error": null, "status": 200, "id": "mexican-curp-validation",
+        "data": {"curp": "CURP", "fullName": "LAST FIRST", "birthDate": "01/01/1980",
+        "gender": "HOMBRE", "nationality": "MEXICO", "surname": "LAST", "secondSurname":
+        "", "name": "FIRST"}}, {"error": null, "status": 200, "id": "document-reading",
+        "data": {"fullName": {"value": "FIRST LAST", "label": "Name", "sensitive":
         true}, "documentNumber": {"value": "111", "label": "Document Number"}, "dateOfBirth":
         {"value": "1980-01-01", "label": "Day of Birth", "format": "date"}, "expirationDate":
         {"value": "2030-12-31", "label": "Date of Expiration", "format": "date"},
         "curp": {"value": "CURP", "label": "CURP"}, "address": {"value": "Varsovia
         36, 06600 CDMX", "label": "Address"}, "emissionDate": {"value": "2010-01-01",
-        "label": "Emission Date", "format": "date"}}}], "hasProblem": false, "computed":
-        {"age": {"data": 100}}, "id": "5d9fb1f5bfbfac001a349bfb", "metadata": {"name":
-        "First Last", "dob": "1980-01-01"}}'
+        "label": "Emission Date", "format": "date"}}}, {"error": null, "status": 200,
+        "id": "alteration-detection"}, {"error": null, "status": 200, "id": "watchlists"}],
+        "type": "national-id", "fields": {"fullName": {"value": "FIRST LAST", "label":
+        "Name", "sensitive": true}, "documentNumber": {"value": "111", "label": "Document
+        Number"}, "dateOfBirth": {"value": "1980-01-01", "label": "Day of Birth",
+        "format": "date"}, "expirationDate": {"value": "2030-12-31", "label": "Date
+        of Expiration", "format": "date"}, "curp": {"value": "CURP", "label": "CURP"},
+        "address": {"value": "Varsovia 36, 06600 CDMX", "label": "Address"}, "emissionDate":
+        {"value": "2010-01-01", "label": "Emission Date", "format": "date"}}}], "hasProblem":
+        false, "computed": {"age": {"data": 100}}, "id": "5d9fb1f5bfbfac001a349bfb",
+        "metadata": {"name": "First Last", "dob": "1980-01-01"}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '2380'
+      - '2546'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 15 Oct 2019 19:17:29 GMT
-      Etag:
-      - W/"94c-y4otnFQOugV/PpUWyU6DRP1qnJM"
+      - Mon, 18 Oct 2021 17:17:33 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
       Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
-      X-Powered-By:
-      - Express
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - c16b1b58-ab97-4a87-8e67-8a18a4dfd44d
       X-Xss-Protection:
-      - 1; mode=block
+      - '1'
     status:
       code: 200
       message: OK

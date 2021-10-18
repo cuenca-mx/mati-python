@@ -13,8 +13,8 @@ def test_two_clients():
     # always has the reference to the last client initialized
     assert Resource._client == main_client
 
-    assert main_client.bearer_token.get() is None
-    assert secondary_client.bearer_token.get() is None
+    assert main_client.bearer_token is None
+    assert secondary_client.bearer_token is None
 
     metadata = dict(
         nombres='Georg Wilhelm',
@@ -35,6 +35,4 @@ def test_two_clients():
     assert main_retrieve.id == main_identity.id
     assert secondary_retrieve.id == secondary_identity.id
 
-    assert (
-        main_client.bearer_token.get() == main_client.get_valid_bearer_token()
-    )
+    assert main_client.bearer_token == main_client.get_valid_bearer_token()
