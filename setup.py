@@ -24,7 +24,7 @@ setup(
     install_requires=[
         'dataclasses>=0.6;python_version<"3.7"',
         'requests>=2.22.0,<3.0.0',
-        'iso8601>=0.1.12,<0.2.0',
+        'iso8601>=0.1.12,<1.1.0',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
