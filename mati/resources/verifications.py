@@ -69,7 +69,7 @@ class Verification(Resource):
         por = self.proof_of_residency_document
         return DocumentScore(
             all([step.status == 200 for step in por.steps])
-            and self.computed['is_document_expired']['data'][
+            and not self.computed['is_document_expired']['data'][
                 'proof_of_residency'
             ],
             sum([step.status for step in por.steps]),
