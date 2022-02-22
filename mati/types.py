@@ -45,6 +45,27 @@ class VerificationDocument:
 
 
 @dataclass
+class LivenessMedia:
+    video_url: str
+    sprite_url: str
+    selfie_url: str
+
+
+@dataclass
+class Liveness:
+    status: int
+    id: str
+    data: LivenessMedia
+    error: Optional[str]
+
+
+@dataclass
+class DocumentScore:
+    is_valid: bool
+    score: int
+
+
+@dataclass
 class UserValidationFile:
     filename: str
     content: BinaryIO
