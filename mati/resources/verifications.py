@@ -64,26 +64,29 @@ class Verification(Resource):
         ]
         return govs[-1] if govs else None
 
-    @property
-    def proof_of_residency_is_valid(self):
+    def proof_of_residency_validate(self):
         por = self.proof_of_residency_document
         return DocumentScore(
-            all([step.status == 200 for step in por.steps])
+            all([step.status == 200 and not step.error for step in por.steps])
             and not self.computed['is_document_expired']['data'][
                 'proof_of_residency'
             ],
-            sum([step.status for step in por.steps]),
+            sum([step.status for step in por.steps if not step.error]),
+            [step.error['code'] for step in por.steps if step.error],
         )
 
-    @property
-    def proof_of_life_is_valid(self):
+    def proof_of_life_validate(self):
         pol = self.proof_of_life_document
-        return DocumentScore(pol.status == 200 and not pol.error, pol.status)
+        return DocumentScore(
+            pol.status == 200 and not pol.error,
+            pol.status,
+            [pol.error['type']],
+        )
 
-    @property
-    def gov_id_is_valid(self):
+    def gov_id_is_validate(self):
         gov = self.gov_id_document
         return DocumentScore(
-            all([step.status == 200 for step in gov.steps]),
-            sum([step.status for step in gov.steps]),
+            all([step.status == 200 and not step.error for step in gov.steps]),
+            sum([step.status for step in gov.steps if not step.error]),
+            [step.error['code'] for step in gov.steps if step.error],
         )

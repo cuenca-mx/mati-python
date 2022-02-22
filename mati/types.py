@@ -30,7 +30,7 @@ class ValidationType(SerializableEnum):
 class VerificationDocumentStep:
     id: str
     status: int
-    error: Optional[str] = None
+    error: Optional[Dict] = None
     data: Optional[Dict] = field(default_factory=dict)
 
 
@@ -40,7 +40,7 @@ class VerificationDocument:
     region: str
     photos: List[str]
     steps: List[VerificationDocumentStep]
-    type: str
+    type: ValidationType
     fields: Optional[dict] = None
 
 
@@ -56,13 +56,14 @@ class Liveness:
     status: int
     id: str
     data: LivenessMedia
-    error: Optional[str]
+    error: Optional[Dict]
 
 
 @dataclass
 class DocumentScore:
     is_valid: bool
     score: int
+    error_codes: Optional[List[str]]
 
 
 @dataclass
