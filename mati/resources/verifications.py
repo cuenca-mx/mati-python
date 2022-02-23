@@ -64,6 +64,7 @@ class Verification(Resource):
         ]
         return govs[-1] if govs else None
 
+    @property
     def proof_of_residency_validate(self):
         por = self.proof_of_residency_document
         return DocumentScore(
@@ -75,14 +76,16 @@ class Verification(Resource):
             [step.error['code'] for step in por.steps if step.error],
         )
 
+    @property
     def proof_of_life_validate(self):
         pol = self.proof_of_life_document
         return DocumentScore(
             pol.status == 200 and not pol.error,
             pol.status,
-            [pol.error['type']],
+            [pol.error['type']] if pol.error else [],
         )
 
+    @property
     def gov_id_is_validate(self):
         gov = self.gov_id_document
         return DocumentScore(
