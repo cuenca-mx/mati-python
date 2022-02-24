@@ -65,6 +65,29 @@ class Verification(Resource):
         return govs[-1] if govs else None
 
     @property
+    def gov_id_type(self):
+        gov = self.gov_id_document
+        document_data = [
+            step.data for step in gov.steps if step.id == 'document-reading'
+        ]
+        if (
+            all(
+                [
+                    gov.type == 'national-id',
+                    document_data,
+                    'cde' in document_data[-1],
+                ]
+            )
+            and document_data[-1]['cde']['label'] == 'Elector Key'
+            and document_data[-1]['cde']['value']
+        ):
+            return 'ine'
+        elif gov.type == 'passport':
+            return 'passport'
+        else:
+            return 'dni'
+
+    @property
     def proof_of_residency_validate(self):
         por = self.proof_of_residency_document
         return DocumentScore(
@@ -86,7 +109,7 @@ class Verification(Resource):
         )
 
     @property
-    def gov_id_is_validate(self):
+    def gov_id_validate(self):
         gov = self.gov_id_document
         return DocumentScore(
             all([step.status == 200 and not step.error for step in gov.steps]),
