@@ -56,11 +56,11 @@ class Verification(Resource):
         return pol[-1] if pol else None
 
     @property
-    def gov_id_document(self):
+    def govt_id_document(self):
         govs = [
-            gov
-            for gov in self.documents
-            if gov.type in ['national-id', 'passport']
+            govt
+            for govt in self.documents
+            if govt.type in ['national-id', 'passport']
         ]
         return govs[-1] if govs else None
 
@@ -90,12 +90,14 @@ class Verification(Resource):
         )
 
     @property
-    def gov_id_validation(self):
-        gov = self.gov_id_document
-        if not gov:
+    def govt_id_validation(self):
+        govt = self.govt_id_document
+        if not govt:
             return None
         return DocumentScore(
-            all([step.status == 200 and not step.error for step in gov.steps]),
-            sum([step.status for step in gov.steps if not step.error]),
-            [step.error['code'] for step in gov.steps if step.error],
+            all(
+                [step.status == 200 and not step.error for step in govt.steps]
+            ),
+            sum([step.status for step in govt.steps if not step.error]),
+            [step.error['code'] for step in govt.steps if step.error],
         )

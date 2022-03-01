@@ -47,18 +47,20 @@ class VerificationDocument:
     def document_type(self):
         if self.type in ['national-id', 'passport']:
             document_data = [
-                step.data for step in self.steps if step.id == 'document-reading'
+                step.data
+                for step in self.steps
+                if step.id == 'document-reading'
             ]
             if (
-                    all(
-                        [
-                            self.type == 'national-id',
-                            document_data,
-                            'cde' in document_data[-1],
-                        ]
-                    )
-                    and document_data[-1]['cde']['label'] == 'Elector Key'
-                    and document_data[-1]['cde']['value']
+                all(
+                    [
+                        self.type == 'national-id',
+                        document_data,
+                        'cde' in document_data[-1],
+                    ]
+                )
+                and document_data[-1]['cde']['label'] == 'Elector Key'
+                and document_data[-1]['cde']['value']
             ):
                 return 'ine'
             elif self.type == 'passport':
@@ -70,9 +72,9 @@ class VerificationDocument:
 
     @property
     def address(self):
-        '''
+        """
         This property fills the address direct from the ocr fields `address`
-        '''
+        """
         if 'address' in self.fields:
             return self.fields['address']['value']
         else:
@@ -80,15 +82,13 @@ class VerificationDocument:
 
     @property
     def full_name(self):
-        '''
+        """
         This property fills the fullname direct from the ocr fields `full_name`
-        '''
+        """
         if 'full_name' in self.fields:
             return self.fields['full_name']['value']
         else:
             return None
-
-
 
 
 @dataclass
