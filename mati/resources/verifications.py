@@ -65,31 +65,10 @@ class Verification(Resource):
         return govs[-1] if govs else None
 
     @property
-    def gov_id_type(self):
-        gov = self.gov_id_document
-        document_data = [
-            step.data for step in gov.steps if step.id == 'document-reading'
-        ]
-        if (
-            all(
-                [
-                    gov.type == 'national-id',
-                    document_data,
-                    'cde' in document_data[-1],
-                ]
-            )
-            and document_data[-1]['cde']['label'] == 'Elector Key'
-            and document_data[-1]['cde']['value']
-        ):
-            return 'ine'
-        elif gov.type == 'passport':
-            return 'passport'
-        else:
-            return 'dni'
-
-    @property
-    def proof_of_residency_validate(self):
+    def proof_of_residency_validation(self):
         por = self.proof_of_residency_document
+        if not por:
+            return None
         return DocumentScore(
             all([step.status == 200 and not step.error for step in por.steps])
             and not self.computed['is_document_expired']['data'][
@@ -100,8 +79,10 @@ class Verification(Resource):
         )
 
     @property
-    def proof_of_life_validate(self):
+    def proof_of_life_validation(self):
         pol = self.proof_of_life_document
+        if not pol:
+            return None
         return DocumentScore(
             pol.status == 200 and not pol.error,
             pol.status,
@@ -109,8 +90,10 @@ class Verification(Resource):
         )
 
     @property
-    def gov_id_validate(self):
+    def gov_id_validation(self):
         gov = self.gov_id_document
+        if not gov:
+            return None
         return DocumentScore(
             all([step.status == 200 and not step.error for step in gov.steps]),
             sum([step.status for step in gov.steps if not step.error]),
