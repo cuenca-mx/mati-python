@@ -15,6 +15,7 @@ VERIFICATION_RESP = {
         {
             'country': 'MX',
             'region': '',
+            'type': 'national-id',
             'photos': [
                 'https://media.getmati.com/media/xxx',
                 'https://media.getmati.com/media/yyy',
@@ -75,7 +76,6 @@ VERIFICATION_RESP = {
                 {'error': None, 'status': 200, 'id': 'alteration-detection'},
                 {'error': None, 'status': 200, 'id': 'watchlists'},
             ],
-            'type': 'national-id',
             'fields': {
                 'fullName': {
                     'value': 'FIRST LAST',
@@ -104,10 +104,62 @@ VERIFICATION_RESP = {
                     'format': 'date',
                 },
             },
+        },
+        {
+            "country": "MX",
+            "region": None,
+            "type": "proof-of-residency",
+            "steps": [
+                {
+                    "status": 200,
+                    "id": "document-reading",
+                    "data": {
+                        "fullName": {
+                            "required": True,
+                            "label": "Name",
+                            "value": "FIRST NAME",
+                        },
+                        "address": {
+                            "label": "Address",
+                            "value": "Varsovia 36, 06600 CDMX",
+                        },
+                        "emissionDate": {
+                            "format": "date",
+                            "label": "Emission Date",
+                            "value": "1880-01-01",
+                        },
+                    },
+                    "error": None,
+                },
+                {"status": 200, "id": "watchlists", "error": None},
+            ],
+            "fields": {
+                "address": {"value": "Varsovia 36, 06600 CDMX"},
+                "emissionDate": {"value": "1880-01-01"},
+                "fullName": {"value": "FIRST LASTNAME"},
+            },
+            "photos": ["https://media.getmati.com/file?location=xyc"],
+        },
+    ],
+    "steps": [
+        {
+            "status": 200,
+            "id": "liveness",
+            "data": {
+                "videoUrl": "https://media.getmati.com/file?location=abc",
+                "spriteUrl": "https://media.getmati.com/file?location=def",
+                "selfieUrl": "https://media.getmati.com/file?location=hij",
+            },
+            "error": None,
         }
     ],
     'hasProblem': False,
-    'computed': {'age': {'data': 100}},
+    'computed': {
+        'age': {'data': 100},
+        "isDocumentExpired": {
+            "data": {"national-id": False, "proof-of-residency": False}
+        },
+    },
     'id': '5d9fb1f5bfbfac001a349bfb',
     'metadata': {'name': 'First Last', 'dob': '1980-01-01'},
 }

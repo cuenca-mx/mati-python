@@ -44,19 +44,19 @@ class Verification(Resource):
         return cast('Verification', cls._from_dict(resp))
 
     @property
-    def proof_of_residency_document(self):
+    def proof_of_residency_document(self) -> Optional[VerificationDocument]:
         pors = [
             por for por in self.documents if por.type == 'proof-of-residency'
         ]
         return pors[-1] if pors else None
 
     @property
-    def proof_of_life_document(self):
+    def proof_of_life_document(self) -> Optional[Liveness]:
         pol = [pol for pol in self.steps if pol.id == 'liveness']
         return pol[-1] if pol else None
 
     @property
-    def govt_id_document(self):
+    def govt_id_document(self) -> Optional[VerificationDocument]:
         govs = [
             govt
             for govt in self.documents
@@ -65,7 +65,7 @@ class Verification(Resource):
         return govs[-1] if govs else None
 
     @property
-    def proof_of_residency_validation(self):
+    def proof_of_residency_validation(self) -> Optional[DocumentScore]:
         por = self.proof_of_residency_document
         if not por:
             return None
@@ -79,7 +79,7 @@ class Verification(Resource):
         )
 
     @property
-    def proof_of_life_validation(self):
+    def proof_of_life_validation(self) -> Optional[DocumentScore]:
         pol = self.proof_of_life_document
         if not pol:
             return None
@@ -90,7 +90,7 @@ class Verification(Resource):
         )
 
     @property
-    def govt_id_validation(self):
+    def govt_id_validation(self) -> Optional[DocumentScore]:
         govt = self.govt_id_document
         if not govt:
             return None
