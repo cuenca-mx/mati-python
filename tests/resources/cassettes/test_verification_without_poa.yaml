@@ -1,0 +1,161 @@
+interactions:
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - mati-python/0.3.2.dev7
+    method: POST
+    uri: https://api.getmati.com/oauth
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '641'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 02 Mar 2022 00:10:43 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 09cf3e9f-02b1-4ff2-8463-f1af440c307f
+      X-Xss-Protection:
+      - '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - mati-python/0.3.2.dev7
+    method: GET
+    uri: https://api.getmati.com/v2/verifications/5d9fb1f5bfbfac001a349bfb
+  response:
+    body:
+      string: '{"expired": false, "identity": {"status": "verified"}, "flow": {"id":
+        "some_flow", "name": "Default flow"}, "documents": [{"country": "MX", "region":
+        "", "type": "national-id", "photos": ["https://media.getmati.com/media/xxx",
+        "https://media.getmati.com/media/yyy"], "steps": [{"error": null, "status":
+        200, "id": "template-matching"}, {"error": null, "status": 200, "id": "mexican-curp-validation",
+        "data": {"curp": "CURP", "fullName": "LAST FIRST", "birthDate": "01/01/1980",
+        "gender": "HOMBRE", "nationality": "MEXICO", "surname": "LAST", "secondSurname":
+        "", "name": "FIRST"}}, {"error": null, "status": 200, "id": "document-reading",
+        "data": {"fullName": {"value": "FIRST LAST", "label": "Name", "sensitive":
+        true}, "documentNumber": {"value": "111", "label": "Document Number"}, "dateOfBirth":
+        {"value": "1980-01-01", "label": "Day of Birth", "format": "date"}, "expirationDate":
+        {"value": "2030-12-31", "label": "Date of Expiration", "format": "date"},
+        "curp": {"value": "CURP", "label": "CURP"}, "address": {"value": "Varsovia
+        36, 06600 CDMX", "label": "Address"}, "emissionDate": {"value": "2010-01-01",
+        "label": "Emission Date", "format": "date"}}}, {"error": null, "status": 200,
+        "id": "alteration-detection"}, {"error": null, "status": 200, "id": "watchlists"}],
+        "fields": {"fullName": {"value": "FIRST LAST", "label": "Name", "sensitive":
+        true}, "documentNumber": {"value": "111", "label": "Document Number"}, "dateOfBirth":
+        {"value": "1980-01-01", "label": "Day of Birth", "format": "date"}, "expirationDate":
+        {"value": "2030-12-31", "label": "Date of Expiration", "format": "date"},
+        "curp": {"value": "CURP", "label": "CURP"}, "address": {"value": "Varsovia
+        36, 06600 CDMX", "label": "Address"}, "emissionDate": {"value": "2010-01-01",
+        "label": "Emission Date", "format": "date"}}}, {"country": "MX", "region":
+        null, "type": "proof-of-residency", "steps": [{"status": 200, "id": "document-reading",
+        "data": {"fullName": {"required": true, "label": "Name", "value": "FIRST NAME"},
+        "address": {"label": "Address", "value": "Varsovia 36, 06600 CDMX"}, "emissionDate":
+        {"format": "date", "label": "Emission Date", "value": "1880-01-01"}}, "error":
+        null}, {"status": 200, "id": "watchlists", "error": null}], "fields": {"address":
+        {"value": "Varsovia 36, 06600 CDMX"}, "emissionDate": {"value": "1880-01-01"},
+        "fullName": {"value": "FIRST LASTNAME"}}, "photos": ["https://media.getmati.com/file?location=xyc"]}],
+        "steps": [{"status": 200, "id": "liveness", "data": {"videoUrl": "https://media.getmati.com/file?location=abc",
+        "spriteUrl": "https://media.getmati.com/file?location=def", "selfieUrl": "https://media.getmati.com/file?location=hij"},
+        "error": null}], "hasProblem": false, "computed": {"age": {"data": 100}, "isDocumentExpired":
+        {"data": {"national-id": false, "proof-of-residency": false}}}, "id": "5d9fb1f5bfbfac001a349bfb",
+        "metadata": {"name": "First Last", "dob": "1980-01-01"}}'
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2546'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 02 Mar 2022 00:10:43 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - cadcb9a8-f5fa-4e9f-bcc7-fe892a16f803
+      X-Xss-Protection:
+      - '1'
+    status:
+      code: 200
+      message: OK
+version: 1
