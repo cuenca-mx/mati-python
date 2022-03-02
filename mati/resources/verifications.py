@@ -19,7 +19,7 @@ class Verification(Resource):
     expired: bool
     steps: Optional[List[Liveness]]
     documents: List[VerificationDocument]
-    computed: Dict[str, Any]
+    computed: Optional[Dict[str, Any]] = None
     metadata: Optional[Dict[str, Dict[str, str]]] = None
     identity: Dict[str, str] = field(default_factory=dict)
     has_problem: Optional[bool] = None
@@ -73,9 +73,9 @@ class Verification(Resource):
             return None
         return DocumentScore(
             all([step.status == 200 and not step.error for step in por.steps])
-            and not self.computed['is_document_expired']['data'][
+            and not (self.computed and self.computed['is_document_expired']['data'][
                 'proof_of_residency'
-            ],
+            ]),
             sum([step.status for step in por.steps if not step.error]),
             [step.error['code'] for step in por.steps if step.error],
         )
