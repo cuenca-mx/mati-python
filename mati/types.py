@@ -75,7 +75,7 @@ class VerificationDocument:
         """
         This property fills the address direct from the ocr fields `address`
         """
-        if 'address' in self.fields:
+        if self.fields and 'address' in self.fields:
             return self.fields['address']['value']
         else:
             return None
@@ -85,7 +85,7 @@ class VerificationDocument:
         """
         This property fills the fullname direct from the ocr fields `full_name`
         """
-        if 'full_name' in self.fields:
+        if self.fields and 'full_name' in self.fields:
             return self.fields['full_name']['value']
         else:
             return None
