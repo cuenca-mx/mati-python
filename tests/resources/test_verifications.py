@@ -29,7 +29,6 @@ def test_verification_without_liveness(client: Client):
     assert not verification.proof_of_life_document
 
 
-
 @pytest.mark.vcr
 def test_verification_without_poa(client: Client):
     verification = client.verifications.retrieve('5d9fb1f5bfbfac001a349bfb')
