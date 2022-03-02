@@ -40,7 +40,7 @@ class VerificationDocument:
     region: str
     photos: List[str]
     steps: List[VerificationDocumentStep]
-    type: ValidationType
+    type: str
     fields: Optional[dict] = None
 
     @property
