@@ -19,10 +19,10 @@ class Verification(Resource):
     expired: bool
     steps: Optional[List[Liveness]]
     documents: List[VerificationDocument]
+    computed: Dict[str, Any]
     metadata: Optional[Dict[str, Dict[str, str]]] = None
     identity: Dict[str, str] = field(default_factory=dict)
     has_problem: Optional[bool] = None
-    computed: Optional[Dict[str, Any]] = None
     obfuscated_at: Optional[dt.datetime] = None
     flow: Optional[Dict[str, Any]] = None
 
@@ -52,6 +52,8 @@ class Verification(Resource):
 
     @property
     def proof_of_life_document(self) -> Optional[Liveness]:
+        if not self.steps:
+            return None
         pol = [pol for pol in self.steps if pol.id == 'liveness']
         return pol[-1] if pol else None
 

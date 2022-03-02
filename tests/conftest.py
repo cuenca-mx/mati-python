@@ -9,8 +9,7 @@ from mati import Client
 VERIFICATION_RESP = {
     'expired': False,
     'identity': {'status': 'verified'},
-    'flow': {'id': '5e9576d9ac2c70001ca9f092', 'name': 'Default flow'},
-    'steps': [],
+    'flow': {'id': 'some_flow', 'name': 'Default flow'},
     'documents': [
         {
             'country': 'MX',
