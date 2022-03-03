@@ -78,7 +78,7 @@ class VerificationDocument:
         if self.fields and 'address' in self.fields:
             return self.fields['address']['value']
         else:
-            return None
+            return ''
 
     @property
     def full_name(self):
@@ -88,7 +88,7 @@ class VerificationDocument:
         if self.fields and 'full_name' in self.fields:
             return self.fields['full_name']['value']
         else:
-            return None
+            return ''
 
 
 @dataclass
