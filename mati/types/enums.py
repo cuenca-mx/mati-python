@@ -4,7 +4,7 @@ from typing import BinaryIO, Dict, List, Optional, Union
 
 
 class SerializableEnum(str, Enum):
-    def __str__(self):
+    def __str__(self) -> str:
         return self.value
 
 
@@ -44,51 +44,49 @@ class VerificationDocument:
     fields: Optional[dict] = None
 
     @property
-    def document_type(self):
+    def document_type(self) -> str:
         if self.type in ['national-id', 'passport']:
             document_data = [
                 step.data
                 for step in self.steps
                 if step.id == 'document-reading'
             ]
-            if (
-                all(
-                    [
-                        self.type == 'national-id',
-                        document_data,
-                        'cde' in document_data[-1],
-                    ]
-                )
-                and document_data[-1]['cde']['label'] == 'Elector Key'
-                and document_data[-1]['cde']['value']
-            ):
-                return 'ine'
-            elif self.type == 'passport':
-                return 'passport'
-            else:
-                return 'dni'
-        else:
-            return self.type
+            if document_data[-1] is not None:
+                if (
+                    all(
+                        [
+                            self.type == 'national-id',
+                            document_data,
+                            'cde' in document_data[-1],
+                        ]
+                    )
+                    and document_data[-1]['cde']['label'] == 'Elector Key'
+                    and document_data[-1]['cde']['value']
+                ):
+                    return 'ine'
+                elif self.type == 'passport':
+                    return 'passport'
+                else:
+                    return 'dni'
+        return self.type
 
     @property
-    def address(self):
+    def address(self) -> str:
         """
         This property fills the address direct from the ocr fields `address`
         """
         if self.fields and 'address' in self.fields:
             return self.fields['address']['value']
-        else:
-            return ''
+        return ''
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         """
         This property fills the fullname direct from the ocr fields `full_name`
         """
         if self.fields and 'full_name' in self.fields:
             return self.fields['full_name']['value']
-        else:
-            return ''
+        return ''
 
 
 @dataclass
@@ -108,9 +106,9 @@ class Liveness:
 
 @dataclass
 class DocumentScore:
-    is_valid: bool
-    score: int
-    error_codes: Optional[List[str]]
+    is_valid: bool = False
+    score: int = 0
+    error_codes: Optional[List[str]] = None
 
 
 @dataclass

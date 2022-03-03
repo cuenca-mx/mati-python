@@ -12,7 +12,7 @@ class Resource:
     _endpoint: ClassVar[str]
 
     # purely for MyPy
-    def __init__(self, **_):  # pragma: no cover
+    def __init__(self, **_) -> None:  # pragma: no cover
         ...
 
     def __post_init__(self) -> None:
@@ -27,7 +27,7 @@ class Resource:
         return cls(**new_dict)
 
     @classmethod
-    def _filter_excess_fields(cls, obj_dict):
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
         """
         dataclasses don't allow __init__ to be called with excess fields. This
         method allows the API to add fields in the response body without

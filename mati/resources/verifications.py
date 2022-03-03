@@ -1,8 +1,8 @@
 import datetime as dt
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Dict, List, Optional, cast
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 
-from ..types import (
+from ..types.enums import (
     DocumentScore,
     Liveness,
     VerificationDocument,
@@ -18,7 +18,7 @@ class Verification(Resource):
     id: str
     expired: bool
     steps: Optional[List[Liveness]]
-    documents: List[VerificationDocument]
+    documents: Union[List[VerificationDocument], dict]
     computed: Optional[Dict[str, Any]] = None
     metadata: Optional[Dict[str, Dict[str, str]]] = None
     identity: Dict[str, str] = field(default_factory=dict)
@@ -73,9 +73,12 @@ class Verification(Resource):
             return None
         return DocumentScore(
             all([step.status == 200 and not step.error for step in por.steps])
-            and not (self.computed and self.computed['is_document_expired']['data'][
-                'proof_of_residency'
-            ]),
+            and not (
+                self.computed
+                and self.computed['is_document_expired']['data'][
+                    'proof_of_residency'
+                ]
+            ),
             sum([step.status for step in por.steps if not step.error]),
             [step.error['code'] for step in por.steps if step.error],
         )
