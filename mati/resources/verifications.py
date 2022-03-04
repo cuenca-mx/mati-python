@@ -20,7 +20,7 @@ class Verification(Resource):
     steps: Optional[List[Liveness]]
     documents: Union[List[VerificationDocument], dict]
     computed: Optional[Dict[str, Any]] = None
-    metadata: Optional[Dict[str, Dict[str, str]]] = None
+    metadata: Optional[Dict[str, Any]] = None
     identity: Dict[str, str] = field(default_factory=dict)
     has_problem: Optional[bool] = None
     obfuscated_at: Optional[dt.datetime] = None
