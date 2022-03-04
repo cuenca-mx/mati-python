@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - mati-python/0.3.2.dev10
+      - mati-python/0.3.2
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -74,7 +74,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - mati-python/0.3.2.dev10
+      - mati-python/0.3.2
     method: GET
     uri: https://api.getmati.com/v2/verifications/621faa3869ef6d001cf439c7
   response:
