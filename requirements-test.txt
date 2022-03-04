@@ -5,3 +5,4 @@ isort==5.7.*
 flake8==3.8.*
 mypy==0.790
 pytest-vcr==1.0.2
+pytest-lazy-fixture==0.6.*

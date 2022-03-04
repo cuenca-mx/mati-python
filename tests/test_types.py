@@ -1,29 +1,33 @@
-# from mati.types import (
-#     ValidationInputType,
-#     VerificationDocument,
-#     VerificationDocumentStep,
-# )
-#
-#
-# def test_type_to_str():
-#     assert str(ValidationInputType.document_photo) == 'document-photo'
-#     assert ValidationInputType.document_photo == 'document-photo'
-#
-#
-# def test_document_type():
-#     document = VerificationDocument(
-#         country='MX',
-#         region='mex',
-#         photos=[],
-#         steps=[
-#             VerificationDocumentStep(
-#                 id='document-reading',
-#                 status=200,
-#                 data={'cde': {'label': 'Elector Key', 'value': 'some'}},
-#             )
-#         ],
-#         type='ine',
-#     )
-#     assert document.document_type == 'ine'
-#     document.type = 'passport'
-#     assert document.document_type == 'passport'
+import pytest
+from pytest_lazyfixture import lazy_fixture
+
+from mati.types import ValidationInputType
+
+
+def test_type_to_str():
+    assert str(ValidationInputType.document_photo) == 'document-photo'
+
+
+@pytest.mark.parametrize(
+    ('verification_document', 'expected_type'),
+    (
+        (
+            lazy_fixture('verification_document_national_id'),
+            'ine',
+        ),
+        (
+            lazy_fixture('verification_document_passport'),
+            'passport',
+        ),
+        (
+            lazy_fixture('verification_document_dni'),
+            'dni',
+        ),
+        (
+            lazy_fixture('verification_document_foreign_id'),
+            'foreign-id',
+        ),
+    ),
+)
+def test_document_type(verification_document, expected_type):
+    assert verification_document.document_type == expected_type

@@ -31,7 +31,7 @@ def change_dict_naming_convention(dict_input, convert_function) -> dict:
     if not isinstance(dict_input, dict):
         return dict_input
     if isinstance(dict_input, list):
-        return dict()  # Puerely for mypy
+        return dict()  # pragma: no cover
     new = {}
     for k, v in dict_input.items():
         new_v = v

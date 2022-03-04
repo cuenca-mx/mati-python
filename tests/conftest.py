@@ -5,6 +5,7 @@ from typing import Generator
 import pytest
 
 from mati import Client
+from mati.types import VerificationDocument, VerificationDocumentStep
 
 VERIFICATION_RESP = {
     'expired': False,
@@ -219,4 +220,78 @@ def identity(client: Client) -> Generator:
         primer_apellido='Friedrich',
         segundo_apellido='Hegel',
         dob='1770-08-27',
+    )
+
+
+@pytest.fixture
+def verification_document_national_id() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={'cde': {'label': 'Elector Key', 'value': 'some'}},
+            )
+        ],
+        type='ine',
+    )
+
+
+@pytest.fixture
+def verification_document_passport() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'P'}
+                },
+            )
+        ],
+        type='passport',
+    )
+
+
+@pytest.fixture
+def verification_document_dni() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'C'}
+                },
+            )
+        ],
+        type='national-id',
+    )
+
+
+@pytest.fixture
+def verification_document_foreign_id() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'C'}
+                },
+            )
+        ],
+        type='foreign-id',
     )

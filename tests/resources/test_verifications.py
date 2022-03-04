@@ -40,3 +40,10 @@ def test_verification_without_poa(client: Client):
     verification.documents = [verification.documents[0]]
     assert not verification.proof_of_residency_document
     assert not verification.proof_of_residency_validation
+
+
+@pytest.mark.vcr
+def test_verification_without_pol(client: Client):
+    verification = client.verifications.retrieve('621faa3869ef6d001cf439c7')
+    verification.steps = None
+    assert not verification.proof_of_life_validation

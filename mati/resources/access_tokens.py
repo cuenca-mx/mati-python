@@ -32,14 +32,14 @@ class AccessToken(Resource):
         )
         try:
             expires_in = resp['expiresIn']
-        except KeyError:
+        except KeyError:  # pragma: no cover
             expires_in = resp['expires_in']
         expires_at = dt.datetime.now() + dt.timedelta(
             seconds=expires_in - EXPIRATION_BUFFER
         )
         try:
             user_id = resp['payload']['user']['_id']
-        except KeyError:
+        except KeyError:  # pragma: no cover
             user_id = None
         return cls(
             user_id=user_id,
