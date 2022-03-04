@@ -236,7 +236,7 @@ def verification_document_national_id() -> VerificationDocument:
                 data={'cde': {'label': 'Elector Key', 'value': 'some'}},
             )
         ],
-        type='ine',
+        type='national-id',
     )
 
 
