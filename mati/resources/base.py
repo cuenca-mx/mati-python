@@ -3,6 +3,8 @@ from typing import ClassVar, Dict, Union
 
 import iso8601
 
+from mati.helpers import camel_to_underscore, change_dict_naming_convention
+
 
 @dataclass
 class Resource:
@@ -10,7 +12,7 @@ class Resource:
     _endpoint: ClassVar[str]
 
     # purely for MyPy
-    def __init__(self, **_):  # pragma: no cover
+    def __init__(self, **_) -> None:  # pragma: no cover
         ...
 
     def __post_init__(self) -> None:
@@ -20,11 +22,12 @@ class Resource:
 
     @classmethod
     def _from_dict(cls, obj_dict: Dict[str, Union[str, int]]) -> 'Resource':
-        cls._filter_excess_fields(obj_dict)
-        return cls(**obj_dict)
+        new_dict = change_dict_naming_convention(obj_dict, camel_to_underscore)
+        cls._filter_excess_fields(new_dict)
+        return cls(**new_dict)
 
     @classmethod
-    def _filter_excess_fields(cls, obj_dict):
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
         """
         dataclasses don't allow __init__ to be called with excess fields. This
         method allows the API to add fields in the response body without

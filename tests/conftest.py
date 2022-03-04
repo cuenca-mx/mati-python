@@ -5,16 +5,17 @@ from typing import Generator
 import pytest
 
 from mati import Client
+from mati.types import VerificationDocument, VerificationDocumentStep
 
 VERIFICATION_RESP = {
     'expired': False,
     'identity': {'status': 'verified'},
-    'flow': {'id': '5e9576d9ac2c70001ca9f092', 'name': 'Default flow'},
-    'steps': [],
+    'flow': {'id': 'some_flow', 'name': 'Default flow'},
     'documents': [
         {
             'country': 'MX',
             'region': '',
+            'type': 'national-id',
             'photos': [
                 'https://media.getmati.com/media/xxx',
                 'https://media.getmati.com/media/yyy',
@@ -75,7 +76,6 @@ VERIFICATION_RESP = {
                 {'error': None, 'status': 200, 'id': 'alteration-detection'},
                 {'error': None, 'status': 200, 'id': 'watchlists'},
             ],
-            'type': 'national-id',
             'fields': {
                 'fullName': {
                     'value': 'FIRST LAST',
@@ -104,10 +104,62 @@ VERIFICATION_RESP = {
                     'format': 'date',
                 },
             },
+        },
+        {
+            "country": "MX",
+            "region": None,
+            "type": "proof-of-residency",
+            "steps": [
+                {
+                    "status": 200,
+                    "id": "document-reading",
+                    "data": {
+                        "fullName": {
+                            "required": True,
+                            "label": "Name",
+                            "value": "FIRST NAME",
+                        },
+                        "address": {
+                            "label": "Address",
+                            "value": "Varsovia 36, 06600 CDMX",
+                        },
+                        "emissionDate": {
+                            "format": "date",
+                            "label": "Emission Date",
+                            "value": "1880-01-01",
+                        },
+                    },
+                    "error": None,
+                },
+                {"status": 200, "id": "watchlists", "error": None},
+            ],
+            "fields": {
+                "address": {"value": "Varsovia 36, 06600 CDMX"},
+                "emissionDate": {"value": "1880-01-01"},
+                "fullName": {"value": "FIRST LASTNAME"},
+            },
+            "photos": ["https://media.getmati.com/file?location=xyc"],
+        },
+    ],
+    "steps": [
+        {
+            "status": 200,
+            "id": "liveness",
+            "data": {
+                "videoUrl": "https://media.getmati.com/file?location=abc",
+                "spriteUrl": "https://media.getmati.com/file?location=def",
+                "selfieUrl": "https://media.getmati.com/file?location=hij",
+            },
+            "error": None,
         }
     ],
     'hasProblem': False,
-    'computed': {'age': {'data': 100}},
+    'computed': {
+        'age': {'data': 100},
+        "isDocumentExpired": {
+            "data": {"national-id": False, "proof-of-residency": False}
+        },
+    },
     'id': '5d9fb1f5bfbfac001a349bfb',
     'metadata': {'name': 'First Last', 'dob': '1980-01-01'},
 }
@@ -168,4 +220,78 @@ def identity(client: Client) -> Generator:
         primer_apellido='Friedrich',
         segundo_apellido='Hegel',
         dob='1770-08-27',
+    )
+
+
+@pytest.fixture
+def verification_document_national_id() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={'cde': {'label': 'Elector Key', 'value': 'some'}},
+            )
+        ],
+        type='national-id',
+    )
+
+
+@pytest.fixture
+def verification_document_passport() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'P'}
+                },
+            )
+        ],
+        type='passport',
+    )
+
+
+@pytest.fixture
+def verification_document_dni() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'C'}
+                },
+            )
+        ],
+        type='national-id',
+    )
+
+
+@pytest.fixture
+def verification_document_foreign_id() -> VerificationDocument:
+    return VerificationDocument(
+        country='MX',
+        region='mex',
+        photos=[],
+        steps=[
+            VerificationDocumentStep(
+                id='document-reading',
+                status=200,
+                data={
+                    'documentType': {'label': 'Document Type', 'value': 'C'}
+                },
+            )
+        ],
+        type='foreign-id',
     )

@@ -16,19 +16,19 @@ class Identity(Resource):
     _endpoint: ClassVar[str] = '/v2/identities'
 
     id: str
-    dateCreated: dt.datetime
-    dateUpdated: dt.datetime
     alive: Optional[bool]
     status: str
-    annotatedStatus: Optional[str] = None
+    date_created: Union[Optional[dt.datetime], None] = None
+    date_updated: Union[Optional[dt.datetime], None] = None
+    annotated_status: Optional[str] = None
     user: Optional[str] = None
     metadata: Union[dict, List[str]] = field(default_factory=dict)
-    fullName: Optional[str] = None
-    facematchScore: Optional[float] = None
+    full_name: Optional[str] = None
+    facematch_score: Optional[float] = None
     photo: Optional[str] = None
     video: Optional[str] = None
-    flowId: Optional[str] = None
-    merchantId: Optional[str] = None
+    flow_id: Optional[str] = None
+    merchant_id: Optional[str] = None
 
     @classmethod
     def create(cls, client=None, **metadata) -> 'Identity':
