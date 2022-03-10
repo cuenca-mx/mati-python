@@ -47,3 +47,10 @@ def test_verification_without_pol(client: Client):
     verification = client.verifications.retrieve('621faa3869ef6d001cf439c7')
     verification.steps = None
     assert not verification.proof_of_life_validation
+
+
+@pytest.mark.vcr
+def test_verification_is_pending(client: Client):
+    verification = client.verifications.retrieve('61c4181a668ff5001c017ff5')
+    verification.identity['status'] = 'running'
+    assert verification.is_pending

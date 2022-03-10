@@ -44,6 +44,10 @@ class Verification(Resource):
         return cast('Verification', cls._from_dict(resp))
 
     @property
+    def is_pending(self) -> bool:
+        return self.identity['status'] in ['running', 'pending']
+
+    @property
     def proof_of_residency_document(self) -> Optional[VerificationDocument]:
         pors = [
             por for por in self.documents if por.type == 'proof-of-residency'
