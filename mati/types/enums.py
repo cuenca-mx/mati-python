@@ -88,6 +88,15 @@ class VerificationDocument:
             return self.fields['full_name']['value']
         return ''
 
+    @property
+    def curp(self) -> str:
+        """
+        This property fills the CURP direct from the ocr fields `curp`
+        """
+        if self.fields and 'curp' in self.fields:
+            return self.fields['curp']['value']
+        return ''
+
 
 @dataclass
 class LivenessMedia:

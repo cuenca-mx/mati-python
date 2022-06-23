@@ -13,9 +13,11 @@ def test_retrieve_full_verification(client: Client):
     assert govt.document_type == 'dni'
     assert govt.address == 'Varsovia 36, 06600 CDMX'
     assert govt.full_name == 'FIRST LAST'
+    assert govt.curp == 'CURP'
     govt.fields = {}
     assert not govt.address
     assert not govt.full_name
+    assert not govt.curp
     assert verification.govt_id_validation.is_valid
     assert verification.proof_of_life_validation.is_valid
     assert verification.proof_of_residency_validation.is_valid
