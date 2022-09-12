@@ -64,3 +64,4 @@ def test_create_verification(client: Client):
     verification = client.verifications.create(FAKE_FLOW_ID, **dict(user='some_id'))
     assert verification.flow['id'] == FAKE_FLOW_ID
     assert verification.metadata['user'] == 'some_id'
+    assert verification.identity
