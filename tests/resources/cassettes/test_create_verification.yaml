@@ -1,0 +1,131 @@
+interactions:
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - mati-python/0.3.4
+    method: POST
+    uri: https://api.getmati.com/oauth
+  response:
+    body:
+      string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
+        {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '746'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 12 Sep 2022 16:54:24 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 1824447c-4ad9-4468-b4de-8c0e448b54c4
+      X-Xss-Protection:
+      - '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"flowId": "some_flow_id", "metadata": {"user": "some_id"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '71'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - mati-python/0.3.4
+    method: POST
+    uri: https://api.getmati.com/v2/verifications
+  response:
+    body:
+      string: '{"documents":[],"expired":false,"flow":{"id":"some_flow_id","name":"FakeFlow"},"identity":"631f644019cdeb001d743839","inputs":[{"id":"connection-data","status":200,"optional":false},{"id":"selfie-video","status":0},{"id":"document-photo","status":0,"group":0},{"id":"document-photo","status":0,"group":1}],"metadata":{"user":"some_id"},"steps":[{"status":0,"id":"liveness"}],"masJobToBePostpone":false,"id":"631f644019cdeb001d74383b","deviceFingerprint":{"ua":"mati-python/0.3.4","ip":"187.189.101.53","vpnDetectionEnabled":false},"hasProblem":false}'
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '568'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 12 Sep 2022 16:54:24 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - a2ae0e22-5f1f-40e6-97d9-6b4feed674de
+      X-Xss-Protection:
+      - '1'
+    status:
+      code: 200
+      message: OK
+version: 1

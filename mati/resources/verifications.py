@@ -37,6 +37,14 @@ class Verification(Resource):
         self.documents = docs
 
     @classmethod
+    def create(cls, flow_id: str, client=None, **metadata):
+        client = client or cls._client
+        resp = client.post(
+            cls._endpoint, json=dict(flowId=flow_id, metadata=metadata)
+        )
+        return cast('Verification', cls._from_dict(resp))
+
+    @classmethod
     def retrieve(cls, verification_id: str, client=None) -> 'Verification':
         client = client or cls._client
         endpoint = f'{cls._endpoint}/{verification_id}'

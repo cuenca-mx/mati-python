@@ -109,8 +109,8 @@ class LivenessMedia:
 class Liveness:
     status: int
     id: str
-    data: LivenessMedia
-    error: Optional[Dict]
+    data: Optional[LivenessMedia] = None
+    error: Optional[Dict] = None
 
 
 @dataclass
