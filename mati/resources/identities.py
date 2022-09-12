@@ -2,9 +2,7 @@ import datetime as dt
 from dataclasses import dataclass, field
 from typing import ClassVar, List, Optional, Union, cast
 
-from ..types import UserValidationFile
 from .base import Resource
-from .user_verification_data import UserValidationData
 
 
 @dataclass
@@ -50,11 +48,3 @@ class Identity(Resource):
         identity = self.retrieve(self.id, client=client)
         for k, v in identity.__dict__.items():
             setattr(self, k, v)
-
-    def upload_validation_data(
-        self, user_validation_files: List[UserValidationFile], client=None
-    ) -> List[dict]:
-        client = client or self._client
-        return UserValidationData.upload(
-            self.id, user_validation_files, client=client
-        )

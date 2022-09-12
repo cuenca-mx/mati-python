@@ -4,6 +4,7 @@ from contextlib import ExitStack
 import pytest
 
 from mati.resources import Identity
+from mati.resources.verifications import Verification
 from mati.types import (
     PageType,
     UserValidationFile,
@@ -50,12 +51,13 @@ def test_ine_and_liveness_upload(identity: Identity):
             content=front,
             input_type=ValidationInputType.selfie_photo,
         )
-        resp = identity.upload_validation_data(
+        resp = Verification.upload_validation_data(
             [
                 user_validation_file,
                 user_validation_file_back,
                 user_validation_live,
                 user_validation_photo,
-            ]
+            ],
+            identity.id,
         )
     assert all([resp[i]['result'] for i in range(3)]) is True

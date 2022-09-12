@@ -5,10 +5,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 from ..types.enums import (
     DocumentScore,
     Liveness,
+    UserValidationFile,
     VerificationDocument,
     VerificationDocumentStep,
 )
 from .base import Resource
+from .user_verification_data import UserValidationData
 
 
 @dataclass
@@ -50,6 +52,18 @@ class Verification(Resource):
         endpoint = f'{cls._endpoint}/{verification_id}'
         resp = client.get(endpoint)
         return cast('Verification', cls._from_dict(resp))
+
+    @classmethod
+    def upload_validation_data(
+        cls,
+        user_validation_files: List[UserValidationFile],
+        identity_id: str,
+        client=None,
+    ) -> List[dict]:
+        client = client or cls._client
+        return UserValidationData.upload(
+            identity_id, user_validation_files, client=client
+        )
 
     @property
     def is_pending(self) -> bool:
