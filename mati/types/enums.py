@@ -24,6 +24,7 @@ class ValidationType(SerializableEnum):
     national_id = 'national-id'
     passport = 'passport'
     proof_of_residency = 'proof-of-residency'
+    liveness = 'video/mp4'
 
 
 @dataclass

@@ -46,17 +46,12 @@ def test_ine_and_liveness_upload(identity: Identity):
             content=live,
             input_type=ValidationInputType.selfie_video,
         )
-        user_validation_photo = UserValidationFile(
-            filename='selfie.jpg',
-            content=front,
-            input_type=ValidationInputType.selfie_photo,
-        )
+
         resp = Verification.upload_validation_data(
             [
                 user_validation_file,
                 user_validation_file_back,
                 user_validation_live,
-                user_validation_photo,
             ],
             identity.id,
         )
