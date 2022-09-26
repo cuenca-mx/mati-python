@@ -62,11 +62,13 @@ user_validation_file_back = UserValidationFile(
     validation_type=ValidationType.national_id,
     country='MX',
     page=PageType.back,
+    group=0,
 )
 user_validation_live = UserValidationFile(
     filename='liveness.MOV',
     content=live,
     input_type=ValidationInputType.selfie_video,
+    group=1,
 )
 
 # Send documentation for validation
