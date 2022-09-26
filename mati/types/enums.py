@@ -24,6 +24,7 @@ class ValidationType(SerializableEnum):
     national_id = 'national-id'
     passport = 'passport'
     proof_of_residency = 'proof-of-residency'
+    liveness = 'video/mp4'
 
 
 @dataclass
@@ -109,8 +110,8 @@ class LivenessMedia:
 class Liveness:
     status: int
     id: str
-    data: LivenessMedia
-    error: Optional[Dict]
+    data: Optional[LivenessMedia] = None
+    error: Optional[Dict] = None
 
 
 @dataclass

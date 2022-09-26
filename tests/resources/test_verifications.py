@@ -56,3 +56,14 @@ def test_verification_is_pending(client: Client):
     verification = client.verifications.retrieve('61c4181a668ff5001c017ff5')
     verification.identity['status'] = 'running'
     assert verification.is_pending
+
+
+@pytest.mark.vcr
+def test_create_verification(client: Client):
+    FAKE_FLOW_ID = 'some_flow_id'
+    verification = client.verifications.create(
+        FAKE_FLOW_ID, **dict(user='some_id')
+    )
+    assert verification.flow['id'] == FAKE_FLOW_ID
+    assert verification.metadata['user'] == 'some_id'
+    assert verification.identity

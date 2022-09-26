@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/2.0.0
     method: POST
     uri: https://api.getmati.com/oauth
   response:
@@ -21,22 +21,51 @@ interactions:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
         {"_id": "ID", "firstName": "FIRST_NAME", "lastName": "LAST_NAME"}}}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '504'
+      - '746'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 16 Oct 2019 22:02:31 GMT
+      - Mon, 26 Sep 2022 21:45:23 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - ae9e11cc-92c0-4f1c-8f3e-7cd88f98048c
+      - 1f75632d-78ad-48eb-a588-87f5817d6adf
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
 - request:
-    body: '{"metadata": {"nombres": "Georg Wilhelm", "primer_apellido": "Friedrich",
-      "segundo_apellido": "Hegel", "dob": "1770-08-27"}}'
+    body: '{"flowId": "SOME_FLOW_ID", "metadata": {"user": "some_id"}}'
     headers:
       Accept:
       - '*/*'
@@ -45,34 +74,64 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '124'
+      - '59'
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.3.5
     method: POST
-    uri: https://api.getmati.com/v2/identities
+    uri: https://api.getmati.com/v2/verifications
   response:
     body:
-      string: '{"_id":"5da793771b6d78001b4596b0","alive":null,"dateCreated":"2019-10-16T22:02:31.307Z","dateUpdated":"2019-10-16T22:02:31.307Z","metadata":{"nombres":"Georg
-        Wilhelm","primer_apellido":"Friedrich","segundo_apellido":"Hegel","dob":"1770-08-27"},"status":"pending","user":"5cec5d4e69eb4d001b8544ce"}'
+      string: '{"documents":[],"expired":false,"flow":{"id":"5e9576d9ac2c70001ca9f092","name":"Default
+        flow"},"identity":"63321d73fa4e97001c4fcca2","inputs":[{"id":"connection-data","status":200,"optional":false},{"id":"selfie-video","status":0},{"id":"document-photo","status":0,"group":0}],"metadata":{"user":"some_id"},"steps":[{"status":0,"id":"liveness"}],"masJobToBePostpone":false,"id":"63321d73fa4e97001c4fcca4","deviceFingerprint":{"ua":"mati-python/0.3.5","ip":"187.189.101.53","vpnDetectionEnabled":false},"hasProblem":false}'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '297'
+      - '521'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 16 Oct 2019 22:02:31 GMT
+      - Mon, 26 Sep 2022 21:45:23 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 8b601be3-06b7-4088-b41b-34d1c45aff3b
+      - b5becaf0-1bbc-4fa5-8772-7c167c9d650d
+      X-Xss-Protection:
+      - '1'
     status:
       code: 200
       message: OK
 - request:
     body: !!binary |
-      LS0xNWEwMDlmYzQ4ZjUxODI0NjIxM2M4MjZlODM1NDJlNQ0KQ29udGVudC1EaXNwb3NpdGlvbjog
+      LS1mNDI4NjAwNzBmMDYyMGFhOTRkMWQzY2YxOTkxY2I0Ng0KQ29udGVudC1EaXNwb3NpdGlvbjog
       Zm9ybS1kYXRhOyBuYW1lPSJpbnB1dHMiDQoNClt7ImlucHV0VHlwZSI6ICJkb2N1bWVudC1waG90
       byIsICJncm91cCI6IDAsICJkYXRhIjogeyJ0eXBlIjogIm5hdGlvbmFsLWlkIiwgImNvdW50cnki
       OiAiTVgiLCAicGFnZSI6ICJmcm9udCIsICJmaWxlbmFtZSI6ICJpbmVfZnJvbnQuanBnIiwgInJl
@@ -80,7 +139,7 @@ interactions:
       ImRhdGEiOiB7InR5cGUiOiAibmF0aW9uYWwtaWQiLCAiY291bnRyeSI6ICJNWCIsICJwYWdlIjog
       ImJhY2siLCAiZmlsZW5hbWUiOiAiaW5lX2JhY2suanBnIiwgInJlZ2lvbiI6ICIifX0sIHsiaW5w
       dXRUeXBlIjogInNlbGZpZS12aWRlbyIsICJkYXRhIjogeyJmaWxlbmFtZSI6ICJsaXZlbmVzcy5N
-      T1YifX1dDQotLTE1YTAwOWZjNDhmNTE4MjQ2MjEzYzgyNmU4MzU0MmU1DQpDb250ZW50LURpc3Bv
+      T1YifX1dDQotLWY0Mjg2MDA3MGYwNjIwYWE5NGQxZDNjZjE5OTFjYjQ2DQpDb250ZW50LURpc3Bv
       c2l0aW9uOiBmb3JtLWRhdGE7IG5hbWU9ImRvY3VtZW50IjsgZmlsZW5hbWU9ImluZV9mcm9udC5q
       cGciDQoNCv/Y/+AAEEpGSUYAAQEAAEgASAAA/+EAjEV4aWYAAE1NACoAAAAIAAUBEgADAAAAAQAB
       AAABGgAFAAAAAQAAAEoBGwAFAAAAAQAAAFIBKAADAAAAAQACAACHaQAEAAAAAQAAAFoAAAAAAAAA
@@ -1951,8 +2010,8 @@ interactions:
       yJnX+6mGHy/3WJh+X+6+IJ7f7sDP8v8A3Vo3h9SeqSwkojTB5olwcjuxcurRGCOD91TlFnkoClgO
       WgQjhWfF0sITNdifI3uxSMvixpOcsQJ5bBmQhY8IYKJlouXCdWSTRb5Kel4fL/dQ91A0FLMAFtjo
       ZQ2QIiY5sjPmsQcpItPO6FDGj1QUq+d0fbShZlC8WDI4VjosFDJfrsmT0k0MiKnAv91qUGSqzMh2
-      B/NLJBVlfHuq41hgf3NAxqBUKPmAms6o8ll/NIkDZoJATiyqCdoxcOCuZYkmqAPF/9kNCi0tMTVh
-      MDA5ZmM0OGY1MTgyNDYyMTNjODI2ZTgzNTQyZTUNCkNvbnRlbnQtRGlzcG9zaXRpb246IGZvcm0t
+      B/NLJBVlfHuq41hgf3NAxqBUKPmAms6o8ll/NIkDZoJATiyqCdoxcOCuZYkmqAPF/9kNCi0tZjQy
+      ODYwMDcwZjA2MjBhYTk0ZDFkM2NmMTk5MWNiNDYNCkNvbnRlbnQtRGlzcG9zaXRpb246IGZvcm0t
       ZGF0YTsgbmFtZT0iZG9jdW1lbnQiOyBmaWxlbmFtZT0iaW5lX2JhY2suanBnIg0KDQr/2P/gABBK
       RklGAAEBAABIAEgAAP/hAIxFeGlmAABNTQAqAAAACAAFARIAAwAAAAEAAQAAARoABQAAAAEAAABK
       ARsABQAAAAEAAABSASgAAwAAAAEAAgAAh2kABAAAAAEAAABaAAAAAAAAAEgAAAABAAAASAAAAAEA
@@ -3823,8 +3882,8 @@ interactions:
       viCe3+7Az/L/AN1aN4fUnqksJKI0weaJcHI7sXLq0Rgjg/dU5RZ5KApYDloEI4VnxdLCEzXYnyN7
       sUjL4saTnLECeWwZkIWPCGCiZaLlwnVkk0W+SnpeHy/3UPdQNBSzABbY6GUNkCImObIz5rEHKSLT
       zuhQxo9UFKvndH20oWZQvFgyOFY6LBQyX67Jk9JNDIipwL/dalBkqszIdgfzSyQVZXx7quNYYH9z
-      QMagVCj5gJrOqPJZfzSJA2aCQE4sqgnaMXDgrmWJJqgDxf/ZDQotLTE1YTAwOWZjNDhmNTE4MjQ2
-      MjEzYzgyNmU4MzU0MmU1DQpDb250ZW50LURpc3Bvc2l0aW9uOiBmb3JtLWRhdGE7IG5hbWU9InZp
+      QMagVCj5gJrOqPJZfzSJA2aCQE4sqgnaMXDgrmWJJqgDxf/ZDQotLWY0Mjg2MDA3MGYwNjIwYWE5
+      NGQxZDNjZjE5OTFjYjQ2DQpDb250ZW50LURpc3Bvc2l0aW9uOiBmb3JtLWRhdGE7IG5hbWU9InZp
       ZGVvIjsgZmlsZW5hbWU9ImxpdmVuZXNzLk1PViINCg0KAAAAFGZ0eXBxdCAgAAAAAHF0ICAAAAAI
       d2lkZQAVtDBtZGF0ISADQGgcIU7vPYfi3CZQkIQIopDrecX4ENvi8qnt3SdtkqWY0ORwNuQNpbj4
       t1HJHh1gZKviEiNiPZ57hd9lLs7WF2uyi4Z8hVHty6CYY6YfFbIzP6xsMjVkXWJz88ZCczgS+52e
@@ -28919,7 +28978,7 @@ interactions:
       AAAAqGZyZWUAAAAgdHJleAAAAAAAAAABAAAAAQAAABQAAyOmAQEAAAAAACB0cmV4AAAAAAAAAAIA
       AAABAAAEAAAAAAYAAAAAAAAAIHRyZXgAAAAAAAAAAwAAAAEAAAK9AAAACAAAAAAAAAAgdHJleAAA
       AAAAAAAEAAAAAQAAAr0AAAAKAAAAAAAAACB0cmV4AAAAAAAAAAUAAAABAAAAFAAAAEgAAAAADQot
-      LTE1YTAwOWZjNDhmNTE4MjQ2MjEzYzgyNmU4MzU0MmU1LS0NCg==
+      LWY0Mjg2MDA3MGYwNjIwYWE5NGQxZDNjZjE5OTFjYjQ2LS0NCg==
     headers:
       Accept:
       - '*/*'
@@ -28930,25 +28989,55 @@ interactions:
       Content-Length:
       - '1644316'
       Content-Type:
-      - multipart/form-data; boundary=15a009fc48f518246213c826e83542e5
+      - multipart/form-data; boundary=f42860070f0620aa94d1d3cf1991cb46
       User-Agent:
-      - python-requests/2.22.0
+      - mati-python/0.3.5
     method: POST
-    uri: https://api.getmati.com/v2/identities/5da793771b6d78001b4596b0/send-input
+    uri: https://api.getmati.com/v2/identities/63321d73fa4e97001c4fcca2/send-input
   response:
     body:
       string: '[{"result":true},{"result":true},{"result":true}]'
     headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, proxy-revalidate
       Connection:
       - keep-alive
       Content-Length:
-      - '49'
+      - '142'
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 16 Oct 2019 22:02:34 GMT
+      - Mon, 26 Sep 2022 21:45:34 GMT
+      Expect-Ct:
+      - max-age=0
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Surrogate-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 2ccae222-da78-41e3-a582-f3d24682cc12
+      - ccd527c1-fab1-4858-ac3d-734f4429d5b5
+      X-Xss-Protection:
+      - '1'
     status:
       code: 201
       message: Created

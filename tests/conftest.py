@@ -213,13 +213,11 @@ def client() -> Generator:
 
 
 @pytest.fixture
-def identity(client: Client) -> Generator:
-    yield client.identities.create(
+def verification(client: Client) -> Generator:
+    yield client.verifications.create(
+        'SOME_FLOW_ID',
         client=client,
-        nombres='Georg Wilhelm',
-        primer_apellido='Friedrich',
-        segundo_apellido='Hegel',
-        dob='1770-08-27',
+        user='some_id',
     )
 
 
