@@ -20,15 +20,68 @@ source venv/bin/activate
 make test
 ```
 
-## Create Identity
+## Create Verification
 
 ```python
 from mati import Client
 
-client = Client()
-georg = client.identities.create(
-    name='Georg Wilhelm Friedrich Hegel',
-    occupation='Philosopher',
-    dob='1770-08-27'
+client = Client('api_key', 'secret_key')
+verification = client.verifications.create(
+    'some_flow_id',
+    company_id='some_id',
 )
+```
+
+## Upload documents
+```python
+from mati.types import (
+    PageType,
+    UserValidationFile,
+    ValidationInputType,
+    ValidationType,
+)
+
+# Load documents
+front = open('ine_front.jpg', 'rb')
+back = open('ine_back.jpg', 'rb')
+live = open('liveness.mp4', 'rb')
+
+# Create document with metadata
+user_validation_file = UserValidationFile(
+    filename='ine_front.jpg',
+    content=front,
+    input_type=ValidationInputType.document_photo,
+    validation_type=ValidationType.national_id,
+    country='MX',
+    group=0, #The group is important when create your metamap
+)
+user_validation_file_back = UserValidationFile(
+    filename='ine_back.jpg',
+    content=back,
+    input_type=ValidationInputType.document_photo,
+    validation_type=ValidationType.national_id,
+    country='MX',
+    page=PageType.back,
+)
+user_validation_live = UserValidationFile(
+    filename='liveness.MOV',
+    content=live,
+    input_type=ValidationInputType.selfie_video,
+)
+
+# Send documentation for validation
+resp = client.verifications.upload_validation_data(
+    [
+        user_validation_file,
+        user_validation_file_back,
+        user_validation_live,
+    ],
+    verification.identity,
+)
+```
+
+## Verification status
+Retrieve the verification when its complete
+```python
+verification = client.verifications.retrieve('verification_id')
 ```
