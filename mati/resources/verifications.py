@@ -23,7 +23,7 @@ class Verification(Resource):
     documents: Union[List[VerificationDocument], dict]
     computed: Optional[Dict[str, Any]] = None
     metadata: Optional[Dict[str, Any]] = None
-    identity: Dict[str, str] = field(default_factory=dict)
+    identity: Optional[str] = None
     has_problem: Optional[bool] = None
     obfuscated_at: Optional[dt.datetime] = None
     flow: Optional[Dict[str, Any]] = None

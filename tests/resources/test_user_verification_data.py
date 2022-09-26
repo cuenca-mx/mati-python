@@ -3,7 +3,6 @@ from contextlib import ExitStack
 
 import pytest
 
-from mati.resources import Identity
 from mati.resources.verifications import Verification
 from mati.types import (
     PageType,
@@ -18,7 +17,7 @@ FIXTURE_DIR = os.path.join(
 
 
 @pytest.mark.vcr
-def test_ine_and_liveness_upload(identity: Identity):
+def test_ine_and_liveness_upload(verification: Verification):
     filepath_front = os.path.join(FIXTURE_DIR, 'ine_front.jpg')
     filepath_back = os.path.join(FIXTURE_DIR, 'ine_back.jpg')
     filepath_live = os.path.join(FIXTURE_DIR, 'liveness.MOV')
@@ -53,6 +52,6 @@ def test_ine_and_liveness_upload(identity: Identity):
                 user_validation_file_back,
                 user_validation_live,
             ],
-            identity.id,
+            verification.identity,
         )
     assert all([resp[i]['result'] for i in range(3)]) is True
