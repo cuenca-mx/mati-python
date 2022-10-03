@@ -53,7 +53,7 @@ class VerificationDocument:
     fields: Optional[dict] = None
 
     @property
-    def get_errors(self) -> Optional[List[Errors]]:
+    def errors(self) -> Optional[List[Errors]]:
         if not self.steps:
             return []
         errors = [
