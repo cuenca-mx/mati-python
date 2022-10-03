@@ -36,6 +36,14 @@ class VerificationDocumentStep:
 
 
 @dataclass
+class Errors:
+    identifier: str
+    type: str
+    code: str
+    message: str
+
+
+@dataclass
 class VerificationDocument:
     country: str
     region: str
@@ -43,6 +51,46 @@ class VerificationDocument:
     steps: List[VerificationDocumentStep]
     type: str
     fields: Optional[dict] = None
+
+    @property
+    def get_errors(self) -> Optional[List[Errors]]:
+        if not self.steps:
+            return []
+        errors = [
+            Errors(
+                identifier=step.id,
+                type=step.error['type'] if 'type' in step.error else None,
+                code=step.error['code'] if 'code' in step.error else None,
+                message=step.error['message']
+                if 'message' in step.error
+                else None,
+            )
+            for step in self.steps
+            if step.error
+        ]
+        if self.type == 'proof-of-residency' and self.steps:
+            step = self.steps[0]
+            keys = step.data.keys()  # type: ignore
+            required_fileds = []
+            for key in keys:
+                data = step.data[key]  # type: ignore
+                if (
+                    'required' in data
+                    and data['required']
+                    and not data['value']
+                ):
+                    required_fileds.append(data['label'])
+            if required_fileds:
+                errors.append(
+                    Errors(
+                        identifier=step.id,
+                        type='StepError',
+                        code='document.extractRequiredFields',
+                        message=f"We can't extract the following "
+                        f"fields in the document: {required_fileds}",
+                    )
+                )
+        return errors
 
     @property
     def document_type(self) -> str:

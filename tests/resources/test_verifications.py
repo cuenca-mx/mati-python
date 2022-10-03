@@ -21,6 +21,7 @@ def test_retrieve_full_verification(client: Client):
     assert verification.govt_id_validation.is_valid
     assert verification.proof_of_life_validation.is_valid
     assert verification.proof_of_residency_validation.is_valid
+    assert not verification.proof_of_life_errors
     assert (
         verification.proof_of_residency_document.address
         == 'Varsovia 36, 06600 CDMX'

@@ -1,4 +1,5 @@
 __all__ = [
+    'Errors',
     'SerializableEnum',
     'PageType',
     'ValidationInputType',
@@ -13,6 +14,7 @@ __all__ = [
 
 from .enums import (
     DocumentScore,
+    Errors,
     Liveness,
     LivenessMedia,
     PageType,
