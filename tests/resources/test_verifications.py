@@ -78,3 +78,4 @@ def test_retrieve_dni_verification(verification_without_pol):
     assert not verification.proof_of_life_errors
     assert not verification.proof_of_life_document
     assert verification.documents[0].document_number == '111'
+    assert not verification.documents[0].ocr_number
