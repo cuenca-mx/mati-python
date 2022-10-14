@@ -95,7 +95,7 @@ class Verification(Resource):
                 if 'message' in pol.error
                 else None,
             )
-            for pol in self.steps
+            for pol in self.steps  # type: ignore
             if pol.id == 'liveness' and pol.error
         ]
 
