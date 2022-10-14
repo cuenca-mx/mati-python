@@ -146,6 +146,26 @@ class VerificationDocument:
             return self.fields['curp']['value']
         return ''
 
+    @property
+    def document_number(self) -> str:
+        """
+        This property fills the dni number direct from the ocr
+        fields `document_number`
+        """
+        if self.fields and 'document_number' in self.fields:
+            return self.fields['document_number']['value']
+        return ''
+
+    @property
+    def ocr_number(self) -> str:
+        """
+        This property fills the number extra direct from the ocr
+        fields `ocr_number`
+        """
+        if self.fields and 'ocr_number' in self.fields:
+            return self.fields['ocr_number']['value']
+        return ''
+
 
 @dataclass
 class LivenessMedia:
