@@ -4,6 +4,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 
 from ..types.enums import (
     DocumentScore,
+    Errors,
     Liveness,
     UserValidationFile,
     VerificationDocument,
@@ -82,6 +83,21 @@ class Verification(Resource):
             return None
         pol = [pol for pol in self.steps if pol.id == 'liveness']
         return pol[-1] if pol else None
+
+    @property
+    def proof_of_life_errors(self) -> List[Errors]:
+        return [
+            Errors(
+                identifier=pol.id,
+                type=pol.error['type'] if 'type' in pol.error else None,
+                code=pol.error['code'] if 'code' in pol.error else None,
+                message=pol.error['message']
+                if 'message' in pol.error
+                else None,
+            )
+            for pol in self.steps  # type: ignore
+            if pol.id == 'liveness' and pol.error
+        ]
 
     @property
     def govt_id_document(self) -> Optional[VerificationDocument]:

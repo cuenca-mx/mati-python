@@ -222,6 +222,13 @@ def verification(client: Client) -> Generator:
 
 
 @pytest.fixture
+def verification_without_pol(client: Client):
+    verification = client.verifications.retrieve('634870763768f1001cac7591')
+    verification.steps = []
+    yield verification
+
+
+@pytest.fixture
 def verification_document_national_id() -> VerificationDocument:
     return VerificationDocument(
         country='MX',

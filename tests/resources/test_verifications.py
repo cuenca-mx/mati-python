@@ -21,6 +21,9 @@ def test_retrieve_full_verification(client: Client):
     assert verification.govt_id_validation.is_valid
     assert verification.proof_of_life_validation.is_valid
     assert verification.proof_of_residency_validation.is_valid
+    assert not verification.govt_id_document.errors
+    assert not verification.proof_of_residency_document.errors
+    assert not verification.proof_of_life_errors
     assert (
         verification.proof_of_residency_document.address
         == 'Varsovia 36, 06600 CDMX'
@@ -67,3 +70,10 @@ def test_create_verification(client: Client):
     assert verification.flow['id'] == FAKE_FLOW_ID
     assert verification.metadata['user'] == 'some_id'
     assert verification.identity
+
+
+@pytest.mark.vcr
+def test_retrieve_dni_verification(verification_without_pol):
+    verification = verification_without_pol
+    assert not verification.proof_of_life_errors
+    assert not verification.proof_of_life_document
