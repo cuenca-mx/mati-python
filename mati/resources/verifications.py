@@ -86,8 +86,6 @@ class Verification(Resource):
 
     @property
     def proof_of_life_errors(self) -> List[Errors]:
-        if not self.steps:
-            return []
         return [
             Errors(
                 identifier=pol.id,
