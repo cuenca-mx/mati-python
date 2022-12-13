@@ -31,7 +31,9 @@ class Verification(Resource):
 
     def __post_init__(self):
         docs = []
-        self.steps = [Liveness(**step) for step in self.steps]
+        self.steps = [
+            Liveness(**step) for step in self.steps if step['id'] == 'liveness'
+        ]
         for doc in self.documents:
             doc['steps'] = [
                 VerificationDocumentStep(**step) for step in doc['steps']
