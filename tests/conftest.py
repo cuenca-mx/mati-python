@@ -242,6 +242,7 @@ def verification_document_national_id() -> VerificationDocument:
             )
         ],
         type='national-id',
+        subtype='credencial-para-votar',
     )
 
 
@@ -261,6 +262,7 @@ def verification_document_passport() -> VerificationDocument:
             )
         ],
         type='passport',
+        subtype='passport',
     )
 
 
@@ -280,6 +282,7 @@ def verification_document_dni() -> VerificationDocument:
             )
         ],
         type='national-id',
+        subtype='id',
     )
 
 
@@ -299,4 +302,5 @@ def verification_document_foreign_id() -> VerificationDocument:
             )
         ],
         type='foreign-id',
+        subtype='id',
     )
