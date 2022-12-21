@@ -1,6 +1,11 @@
 name: release
 
-on: push
+on:
+  push:
+    tags:
+      - stage.*
+      branches:
+        - main
 
 jobs:
   publish-pypi:

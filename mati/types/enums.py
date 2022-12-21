@@ -50,7 +50,7 @@ class VerificationDocument:
     photos: List[str]
     steps: List[VerificationDocumentStep]
     type: str
-    subtype: str
+    subtype: Optional[str] = ''
     fields: Optional[dict] = None
 
     @property
