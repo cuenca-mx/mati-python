@@ -108,7 +108,7 @@ interactions:
         "steps": [{"status": 200, "id": "document-reading", "data": {"fullName": {"required":
         true, "label": "Name", "value": "FIRST NAME"}, "address": {"label": "Address",
         "value": "Varsovia 36, 06600 CDMX"}, "emissionDate": {"format": "date", "label":
-        "Emission Date", "value": "1880-01-01"}}, "error": null}, {"status": 200,
+        "Emission Date", "value": "1880-01-01"}}, "error": null, "reused": false, "cacheHit": false}, {"status": 200,
         "id": "watchlists", "error": null}], "fields": {"address": {"value": "Varsovia
         36, 06600 CDMX"}, "emissionDate": {"value": "1880-01-01"}, "fullName": {"value":
         "FIRST LASTNAME"}}, "photos": ["https://media.getmati.com/file?location=xyc"]}],
