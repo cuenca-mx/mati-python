@@ -36,7 +36,8 @@ class Verification(Resource):
         ]
         for doc in self.documents:
             doc['steps'] = [
-                VerificationDocumentStep(**step) for step in doc['steps']
+                VerificationDocumentStep._from_dict(step)
+                for step in doc['steps']
             ]
             docs.append(VerificationDocument(**doc))
         self.documents = docs

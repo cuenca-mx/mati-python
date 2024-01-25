@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from enum import Enum
-from typing import BinaryIO, Dict, List, Optional, Union
+from typing import Any, BinaryIO, Dict, List, Optional, Union
 
 
 class SerializableEnum(str, Enum):
@@ -33,6 +33,19 @@ class VerificationDocumentStep:
     status: int
     error: Optional[Dict] = None
     data: Optional[Dict] = field(default_factory=dict)
+
+    @classmethod
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
+        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
+        for f in excess:
+            del obj_dict[f]
+
+    @classmethod
+    def _from_dict(
+        cls, obj_dict: Dict[str, Any]
+    ) -> 'VerificationDocumentStep':
+        cls._filter_excess_fields(obj_dict)
+        return cls(**obj_dict)
 
 
 @dataclass
