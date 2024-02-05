@@ -8,6 +8,20 @@ class SerializableEnum(str, Enum):
         return self.value
 
 
+@dataclass
+class BaseModel:
+    @classmethod
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
+        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
+        for f in excess:
+            del obj_dict[f]
+
+    @classmethod
+    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'BaseModel':
+        cls._filter_excess_fields(obj_dict)
+        return cls(**obj_dict)
+
+
 class PageType(SerializableEnum):
     front = 'front'
     back = 'back'
@@ -28,24 +42,11 @@ class ValidationType(SerializableEnum):
 
 
 @dataclass
-class VerificationDocumentStep:
+class VerificationDocumentStep(BaseModel):
     id: str
     status: int
     error: Optional[Dict] = None
     data: Optional[Dict] = field(default_factory=dict)
-
-    @classmethod
-    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
-        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
-        for f in excess:
-            del obj_dict[f]
-
-    @classmethod
-    def _from_dict(
-        cls, obj_dict: Dict[str, Any]
-    ) -> 'VerificationDocumentStep':
-        cls._filter_excess_fields(obj_dict)
-        return cls(**obj_dict)
 
 
 @dataclass
@@ -57,7 +58,7 @@ class Errors:
 
 
 @dataclass
-class VerificationDocument:
+class VerificationDocument(BaseModel):
     country: str
     region: str
     photos: List[str]
@@ -189,22 +190,11 @@ class LivenessMedia:
 
 
 @dataclass
-class Liveness:
+class Liveness(BaseModel):
     status: int
     id: str
     data: Optional[LivenessMedia] = None
     error: Optional[Dict] = None
-
-    @classmethod
-    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
-        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
-        for f in excess:
-            del obj_dict[f]
-
-    @classmethod
-    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'Liveness':
-        cls._filter_excess_fields(obj_dict)
-        return cls(**obj_dict)
 
 
 @dataclass
