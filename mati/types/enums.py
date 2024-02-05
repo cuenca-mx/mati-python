@@ -190,11 +190,22 @@ class LivenessMedia:
 
 
 @dataclass
-class Liveness(BaseModel):
+class Liveness:
     status: int
     id: str
     data: Optional[LivenessMedia] = None
     error: Optional[Dict] = None
+
+    @classmethod
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
+        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
+        for f in excess:
+            del obj_dict[f]
+
+    @classmethod
+    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'BaseModel':
+        cls._filter_excess_fields(obj_dict)
+        return cls(**obj_dict)
 
 
 @dataclass
