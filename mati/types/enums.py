@@ -8,20 +8,6 @@ class SerializableEnum(str, Enum):
         return self.value
 
 
-@dataclass
-class BaseModel:
-    @classmethod
-    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
-        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
-        for f in excess:
-            del obj_dict[f]
-
-    @classmethod
-    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'BaseModel':
-        cls._filter_excess_fields(obj_dict)
-        return cls(**obj_dict)
-
-
 class PageType(SerializableEnum):
     front = 'front'
     back = 'back'
@@ -42,11 +28,24 @@ class ValidationType(SerializableEnum):
 
 
 @dataclass
-class VerificationDocumentStep(BaseModel):
+class VerificationDocumentStep:
     id: str
     status: int
     error: Optional[Dict] = None
     data: Optional[Dict] = field(default_factory=dict)
+
+    @classmethod
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
+        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
+        for f in excess:
+            del obj_dict[f]
+
+    @classmethod
+    def _from_dict(
+        cls, obj_dict: Dict[str, Any]
+    ) -> 'VerificationDocumentStep':
+        cls._filter_excess_fields(obj_dict)
+        return cls(**obj_dict)
 
 
 @dataclass
@@ -58,7 +57,7 @@ class Errors:
 
 
 @dataclass
-class VerificationDocument(BaseModel):
+class VerificationDocument:
     country: str
     region: str
     photos: List[str]
@@ -66,6 +65,17 @@ class VerificationDocument(BaseModel):
     type: str
     subtype: Optional[str] = None
     fields: Optional[dict] = None
+
+    @classmethod
+    def _filter_excess_fields(cls, obj_dict: Dict) -> None:
+        excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
+        for f in excess:
+            del obj_dict[f]
+
+    @classmethod
+    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'VerificationDocument':
+        cls._filter_excess_fields(obj_dict)
+        return cls(**obj_dict)
 
     @property
     def errors(self) -> List[Errors]:
@@ -203,7 +213,7 @@ class Liveness:
             del obj_dict[f]
 
     @classmethod
-    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'BaseModel':
+    def _from_dict(cls, obj_dict: Dict[str, Any]) -> 'Liveness':
         cls._filter_excess_fields(obj_dict)
         return cls(**obj_dict)
 
