@@ -41,7 +41,7 @@ class Verification(Resource):
                 VerificationDocumentStep._from_dict(step)
                 for step in doc['steps']
             ]
-            docs.append(VerificationDocument(**doc))
+            docs.append(VerificationDocument._from_dict(doc))
         self.documents = docs
 
     @classmethod
