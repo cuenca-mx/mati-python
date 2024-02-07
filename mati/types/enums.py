@@ -15,6 +15,9 @@ class PageType(SerializableEnum):
 
 @dataclass
 class BaseModel:
+    def __init__(self, **_) -> None:  # pragma: no cover
+        ...
+
     @classmethod
     def _filter_excess_fields(cls, obj_dict: Dict) -> None:
         excess = set(obj_dict.keys()) - {f.name for f in fields(cls)}
