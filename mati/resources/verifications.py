@@ -31,15 +31,13 @@ class Verification(Resource):
 
     def __post_init__(self):
         docs = []
-        self.steps = [
-            Liveness(**step) for step in self.steps if step['id'] == 'liveness'
-        ]
+        self.steps = [Liveness._from_dict(step) for step in self.steps]
         for doc in self.documents:
             doc['steps'] = [
                 VerificationDocumentStep._from_dict(step)
                 for step in doc['steps']
             ]
-            docs.append(VerificationDocument(**doc))
+            docs.append(VerificationDocument._from_dict(doc))
         self.documents = docs
 
     @classmethod
