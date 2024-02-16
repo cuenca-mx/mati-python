@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - mati-python/0.2.8
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"code":401,"message":"Invalid client: client is invalid","name":"invalid_client","status":401,"statusCode":401}'

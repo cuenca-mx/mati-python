@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
@@ -81,7 +81,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: POST
-    uri: https://api.getmati.com/v2/identities
+    uri: https://api.prod.metamap.com/v2/identities
   response:
     body:
       string: '{"_id":"616dab801a3aaf001c50424a","alive":null,"dateCreated":"2021-10-18T17:14:40.703Z","dateUpdated":"2021-10-18T17:14:40.703Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
@@ -146,7 +146,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
@@ -212,7 +212,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: POST
-    uri: https://api.getmati.com/v2/identities
+    uri: https://api.prod.metamap.com/v2/identities
   response:
     body:
       string: '{"_id":"616dab81e574f0001c2fc8e7","alive":null,"dateCreated":"2021-10-18T17:14:41.232Z","dateUpdated":"2021-10-18T17:14:41.232Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
@@ -273,7 +273,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: GET
-    uri: https://api.getmati.com/v2/identities/616dab801a3aaf001c50424a
+    uri: https://api.prod.metamap.com/v2/identities/616dab801a3aaf001c50424a
   response:
     body:
       string: '{"_id":"616dab801a3aaf001c50424a","alive":null,"dateCreated":"2021-10-18T17:14:40.703Z","dateUpdated":"2021-10-18T17:14:40.703Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
@@ -334,7 +334,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.2
     method: GET
-    uri: https://api.getmati.com/v2/identities/616dab81e574f0001c2fc8e7
+    uri: https://api.prod.metamap.com/v2/identities/616dab81e574f0001c2fc8e7
   response:
     body:
       string: '{"_id":"616dab81e574f0001c2fc8e7","alive":null,"dateCreated":"2021-10-18T17:14:41.232Z","dateUpdated":"2021-10-18T17:14:41.232Z","flowId":"5e9576d9ac2c70001ca9f092","merchantId":"5cec5d4e69eb4d001b8544cf","metadata":{"nombres":"Georg
