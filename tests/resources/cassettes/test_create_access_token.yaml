@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - python-requests/2.22.0
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
