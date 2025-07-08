@@ -209,7 +209,7 @@ def vcr_config() -> dict:
 
 @pytest.fixture
 def client() -> Generator:
-    yield Client('api_key', 'secret_key')
+    yield Client()
 
 
 @pytest.fixture
@@ -225,6 +225,19 @@ def verification(client: Client) -> Generator:
 def verification_without_pol(client: Client):
     verification = client.verifications.retrieve('634870763768f1001cac7591')
     verification.steps = []
+    yield verification
+
+@pytest.fixture
+def verification_with_govt_expired(client: Client):
+    verification = client.verifications.retrieve('686c77811ee936aece7016ac')
+    verification.computed["is_document_expired"]["data"]["national_id"] = True
+    yield verification
+
+
+@pytest.fixture
+def verification_with_poa_expired(client: Client):
+    verification = client.verifications.retrieve('686c77811ee936aece7016ac')
+    verification.computed["is_document_expired"]["data"]["proof_of_residency"] = True
     yield verification
 
 
