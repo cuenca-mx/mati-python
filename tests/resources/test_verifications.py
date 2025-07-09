@@ -82,14 +82,14 @@ def test_retrieve_dni_verification(verification_without_pol):
 
 
 @pytest.mark.vcr
-def test_retrive_verification_invalid_govt(verification_with_govt_expired):
+def test_retrieve_verification_invalid_govt(verification_with_govt_expired):
     verification = verification_with_govt_expired
     assert not verification.govt_id_validation.is_valid
     assert verification.govt_id_validation.error_codes
 
 
 @pytest.mark.vcr
-def test_retrive_verification_invalid_poa(verification_with_poa_expired):
+def test_retrieve_verification_invalid_poa(verification_with_poa_expired):
     verification = verification_with_poa_expired
     assert not verification.proof_of_residency_validation.is_valid
     assert verification.proof_of_residency_validation.error_codes

@@ -133,9 +133,9 @@ class Verification(Resource):
     ) -> Optional[DocumentScore]:
         if not document:
             return None
-        type = document.type.replace("-", "_")
+        document_type = document.type.replace("-", "_")
         is_expired = (
-            self.computed['is_document_expired']['data'][type]
+            self.computed['is_document_expired']['data'][document_type]
             if self.computed
             else False
         )
@@ -143,10 +143,10 @@ class Verification(Resource):
         if is_expired:
             steps.append(
                 VerificationDocumentStep(
-                    id=f'{type}_verification',
+                    id=f'{document_type}_verification',
                     status=500,
                     error={
-                        'verification': f'Document {type} expired',
+                        'verification': f'Document {document_type} expired',
                         'code': 500,
                     },
                 )
