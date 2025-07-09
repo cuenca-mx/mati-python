@@ -144,7 +144,7 @@ class Verification(Resource):
             steps.append(
                 VerificationDocumentStep(
                     id=f'{document_type}_verification',
-                    status=410,
+                    status=200,
                     error={
                         'verification': f'Document {document_type} expired',
                         'code': 'document_expired',
