@@ -139,15 +139,15 @@ class Verification(Resource):
             if self.computed
             else False
         )
-        steps = document.steps
+        steps = document.steps.copy()
         if is_expired:
             steps.append(
                 VerificationDocumentStep(
                     id=f'{document_type}_verification',
-                    status=500,
+                    status=410,
                     error={
                         'verification': f'Document {document_type} expired',
-                        'code': 500,
+                        'code': 'document_expired',
                     },
                 )
             )

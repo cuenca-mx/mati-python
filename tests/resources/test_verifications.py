@@ -85,7 +85,8 @@ def test_retrieve_dni_verification(verification_without_pol):
 def test_retrieve_verification_invalid_govt(verification_with_govt_expired):
     verification = verification_with_govt_expired
     assert not verification.govt_id_validation.is_valid
-    assert verification.govt_id_validation.error_codes
+    assert len(verification.govt_id_validation.error_codes) == 1
+    assert 'document_expired' in verification.govt_id_validation.error_codes
 
 
 @pytest.mark.vcr
