@@ -139,20 +139,10 @@ class Verification(Resource):
             if self.computed
             else False
         )
-        steps = document.steps.copy()
         if is_expired:
-            steps.append(
-                VerificationDocumentStep(
-                    id=f'{document_type}_verification',
-                    status=200,
-                    error={
-                        'verification': f'Document {document_type} expired',
-                        'code': 'document_expired',
-                    },
-                )
-            )
+            document.add_expired_step()
         return DocumentScore(
-            all([step.status == 200 and not step.error for step in steps]),
-            sum([step.status for step in steps if not step.error]),
-            [step.error['code'] for step in steps if step.error],
+            all([step.status == 200 and not step.error for step in document.steps]),
+            sum([step.status for step in document.steps if not step.error]),
+            [step.error['code'] for step in document.steps if step.error],
         )
