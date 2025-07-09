@@ -199,7 +199,6 @@ class VerificationDocument(BaseModel):
             )
 
 
-
 @dataclass
 class LivenessMedia:
     video_url: str

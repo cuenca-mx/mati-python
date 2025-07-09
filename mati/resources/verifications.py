@@ -142,7 +142,12 @@ class Verification(Resource):
         if is_expired:
             document.add_expired_step()
         return DocumentScore(
-            all([step.status == 200 and not step.error for step in document.steps]),
+            all(
+                [
+                    step.status == 200 and not step.error
+                    for step in document.steps
+                ]
+            ),
             sum([step.status for step in document.steps if not step.error]),
             [step.error['code'] for step in document.steps if step.error],
         )
