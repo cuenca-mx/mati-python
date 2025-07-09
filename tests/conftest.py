@@ -209,7 +209,7 @@ def vcr_config() -> dict:
 
 @pytest.fixture
 def client() -> Generator:
-    yield Client()
+    yield Client('api_key', 'secret_key')
 
 
 @pytest.fixture
