@@ -227,6 +227,7 @@ def verification_without_pol(client: Client):
     verification.steps = []
     yield verification
 
+
 @pytest.fixture
 def verification_with_govt_expired(client: Client):
     verification = client.verifications.retrieve('686c77811ee936aece7016ac')
@@ -237,7 +238,9 @@ def verification_with_govt_expired(client: Client):
 @pytest.fixture
 def verification_with_poa_expired(client: Client):
     verification = client.verifications.retrieve('686c77811ee936aece7016ac')
-    verification.computed["is_document_expired"]["data"]["proof_of_residency"] = True
+    verification.computed["is_document_expired"]["data"][
+        "proof_of_residency"
+    ] = True
     yield verification
 
 

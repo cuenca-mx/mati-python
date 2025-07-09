@@ -80,6 +80,7 @@ def test_retrieve_dni_verification(verification_without_pol):
     assert verification.documents[0].document_number == '111'
     assert not verification.documents[0].ocr_number
 
+
 @pytest.mark.vcr
 def test_retrive_verification_invalid_govt(verification_with_govt_expired):
     verification = verification_with_govt_expired

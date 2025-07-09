@@ -127,14 +127,12 @@ class Verification(Resource):
     @property
     def govt_id_validation(self) -> Optional[DocumentScore]:
         return self.get_document_validation(self.govt_id_document)
-    
 
     def get_document_validation(
-            self, 
-            document: Optional[VerificationDocument]
-        ) -> Optional[DocumentScore]:
+        self, document: Optional[VerificationDocument]
+    ) -> Optional[DocumentScore]:
         if not document:
-                return None
+            return None
         type = document.type.replace("-", "_")
         is_expired = (
             self.computed['is_document_expired']['data'][type]
@@ -142,13 +140,16 @@ class Verification(Resource):
             else False
         )
         steps = document.steps
-        if is_expired: 
-            steps.append(VerificationDocumentStep(
-                id=f'{type}_verification', 
-                status=500, 
-                error={
-                    'verification': f'Document {type} expired', 'code': 500
-                })
+        if is_expired:
+            steps.append(
+                VerificationDocumentStep(
+                    id=f'{type}_verification',
+                    status=500,
+                    error={
+                        'verification': f'Document {type} expired',
+                        'code': 500,
+                    },
+                )
             )
         return DocumentScore(
             all([step.status == 200 and not step.error for step in steps]),
