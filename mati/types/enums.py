@@ -185,7 +185,7 @@ class VerificationDocument(BaseModel):
         return ''
 
     def add_expired_step(self) -> None:
-        step_id = f"{self.type}_document_expired"
+        step_id = f"{self.type}-document-expired"
         if not any(step.id == step_id for step in self.steps):
             self.steps.append(
                 VerificationDocumentStep(
@@ -193,8 +193,8 @@ class VerificationDocument(BaseModel):
                     status=200,
                     error={
                         'type': 'StepError',
-                        'code': 'document_expired',
-                        'message': f'Document {self.type} expired',
+                        'code': 'document.expired',
+                        'message': f'Document {self.document_type} expired',
                     },
                 )
             )
