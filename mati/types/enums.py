@@ -186,10 +186,10 @@ class VerificationDocument(BaseModel):
 
     def add_expired_step(self) -> None:
         '''
-        Appends an expired error step to the document if missing. 
-        The steps list is used by the errors property. 
+        Appends an expired error step to the document if missing.
+        The steps list is used by the errors property.
         This ensures document expiration is reflected
-        in the reported errors. 
+        in the reported errors.
         Required because Metamap does not add this error.
         '''
         step_id = f"{self.type}-document-expired"
