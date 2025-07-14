@@ -111,20 +111,7 @@ class Verification(Resource):
 
     @property
     def proof_of_residency_validation(self) -> Optional[DocumentScore]:
-        por = self.proof_of_residency_document
-        if not por:
-            return None
-        return DocumentScore(
-            all([step.status == 200 and not step.error for step in por.steps])
-            and not (
-                self.computed
-                and self.computed['is_document_expired']['data'][
-                    'proof_of_residency'
-                ]
-            ),
-            sum([step.status for step in por.steps if not step.error]),
-            [step.error['code'] for step in por.steps if step.error],
-        )
+        return self.get_document_validation(self.proof_of_residency_document)
 
     @property
     def proof_of_life_validation(self) -> Optional[DocumentScore]:
@@ -139,13 +126,28 @@ class Verification(Resource):
 
     @property
     def govt_id_validation(self) -> Optional[DocumentScore]:
-        govt = self.govt_id_document
-        if not govt:
+        return self.get_document_validation(self.govt_id_document)
+
+    def get_document_validation(
+        self, document: Optional[VerificationDocument]
+    ) -> Optional[DocumentScore]:
+        if not document:
             return None
+        document_type = document.type.replace("-", "_")
+        is_expired = (
+            self.computed['is_document_expired']['data'][document_type]
+            if self.computed
+            else False
+        )
+        if is_expired:
+            document.add_expired_step()
         return DocumentScore(
             all(
-                [step.status == 200 and not step.error for step in govt.steps]
+                [
+                    step.status == 200 and not step.error
+                    for step in document.steps
+                ]
             ),
-            sum([step.status for step in govt.steps if not step.error]),
-            [step.error['code'] for step in govt.steps if step.error],
+            sum([step.status for step in document.steps if not step.error]),
+            [step.error['code'] for step in document.steps if step.error],
         )

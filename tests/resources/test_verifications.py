@@ -79,3 +79,19 @@ def test_retrieve_dni_verification(verification_without_pol):
     assert not verification.proof_of_life_document
     assert verification.documents[0].document_number == '111'
     assert not verification.documents[0].ocr_number
+
+
+@pytest.mark.vcr
+def test_retrieve_verification_invalid_govt(verification_with_govt_expired):
+    verification = verification_with_govt_expired
+    assert not verification.govt_id_validation.is_valid
+    assert len(verification.govt_id_validation.error_codes) == 1
+    assert 'document.expired' in verification.govt_id_validation.error_codes
+
+
+@pytest.mark.vcr
+def test_retrieve_verification_invalid_poa(verification_with_poa_expired):
+    verification = verification_with_poa_expired
+    assert not verification.proof_of_residency_validation.is_valid
+    errors = verification.proof_of_residency_validation.error_codes
+    assert 'document.expired' in errors

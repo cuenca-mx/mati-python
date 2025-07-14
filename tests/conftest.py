@@ -5,6 +5,7 @@ from typing import Generator
 import pytest
 
 from mati import Client
+from mati.resources.verifications import Verification
 from mati.types import VerificationDocument, VerificationDocumentStep
 
 VERIFICATION_RESP = {
@@ -222,9 +223,31 @@ def verification(client: Client) -> Generator:
 
 
 @pytest.fixture
-def verification_without_pol(client: Client):
+def verification_without_pol(
+    client: Client,
+) -> Generator[Verification, None, None]:
     verification = client.verifications.retrieve('634870763768f1001cac7591')
     verification.steps = []
+    yield verification
+
+
+@pytest.fixture
+def verification_with_govt_expired(
+    client: Client,
+) -> Generator[Verification, None, None]:
+    verification = client.verifications.retrieve('686c77811ee936aece7016ac')
+    verification.computed["is_document_expired"]["data"]["national_id"] = True
+    yield verification
+
+
+@pytest.fixture
+def verification_with_poa_expired(
+    client: Client,
+) -> Generator[Verification, None, None]:
+    verification = client.verifications.retrieve('686c77811ee936aece7016ac')
+    verification.computed["is_document_expired"]["data"][
+        "proof_of_residency"
+    ] = True
     yield verification
 
 
