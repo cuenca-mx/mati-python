@@ -6,7 +6,7 @@ from requests import Response, Session
 from .resources import AccessToken, Resource, UserValidationData, Verification
 from .version import __version__ as client_version
 
-API_URL = 'https://api.getmati.com'
+API_URL = 'https://api.prod.metamap.com'
 
 
 class Client:

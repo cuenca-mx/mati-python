@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.4
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
@@ -80,7 +80,7 @@ interactions:
       User-Agent:
       - mati-python/0.3.4
     method: POST
-    uri: https://api.getmati.com/v2/verifications
+    uri: https://api.prod.metamap.com/v2/verifications
   response:
     body:
       string: '{"documents":[],"expired":false,"flow":{"id":"some_flow_id","name":"FakeFlow"},"identity":"631f644019cdeb001d743839","inputs":[{"id":"connection-data","status":200,"optional":false},{"id":"selfie-video","status":0},{"id":"document-photo","status":0,"group":0},{"id":"document-photo","status":0,"group":1}],"metadata":{"user":"some_id"},"steps":[{"status":0,"id":"liveness"}],"masJobToBePostpone":false,"id":"631f644019cdeb001d74383b","deviceFingerprint":{"ua":"mati-python/0.3.4","ip":"187.189.101.53","vpnDetectionEnabled":false},"hasProblem":false}'
