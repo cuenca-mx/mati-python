@@ -82,11 +82,7 @@ class Verification(Resource):
     def proof_of_life_document(self) -> Optional[Liveness]:
         if not self.steps:
             return None
-        pol = [
-            pol
-            for pol in self.steps
-            if (pol.id == 'liveness' or pol.id == 'selfie')
-        ]
+        pol = [pol for pol in self.steps if pol.id in ['liveness', 'selfie']]
         return pol[-1] if pol else None
 
     @property
@@ -101,7 +97,7 @@ class Verification(Resource):
                 else None,
             )
             for pol in self.steps  # type: ignore
-            if pol.id == 'liveness' and pol.error
+            if pol.id in ['liveness', 'selfie'] and pol.error
         ]
 
     @property
