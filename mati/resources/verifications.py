@@ -88,9 +88,10 @@ class Verification(Resource):
     @property
     def proof_of_life_url(self) -> Optional[str]:
         pol = self.proof_of_life_document
-        return pol.data.get('video_url') or pol.data.get(  # type: ignore
-            'selfie_photo_url'
-        )
+        if not pol:
+            return None
+        data = getattr(pol, 'data', {}) or {}
+        return data.get('video_url') or data.get('selfie_photo_url')
 
     @property
     def proof_of_life_errors(self) -> List[Errors]:
