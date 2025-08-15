@@ -21,6 +21,7 @@ def test_retrieve_full_verification(client: Client):
     assert verification.govt_id_validation.is_valid
     assert verification.proof_of_life_validation.is_valid
     assert verification.proof_of_residency_validation.is_valid
+    assert verification.proof_of_life_url
     assert not verification.govt_id_document.errors
     assert not verification.proof_of_residency_document.errors
     assert not verification.proof_of_life_errors
@@ -37,6 +38,7 @@ def test_verification_without_liveness(client: Client):
     verification = client.verifications.retrieve('5d9fb1f5bfbfac001a349bfb')
     verification.steps = []
     assert not verification.proof_of_life_document
+    assert not verification.proof_of_life_url
 
 
 @pytest.mark.vcr

@@ -82,8 +82,16 @@ class Verification(Resource):
     def proof_of_life_document(self) -> Optional[Liveness]:
         if not self.steps:
             return None
-        pol = [pol for pol in self.steps if pol.id == 'liveness']
+        pol = [pol for pol in self.steps if pol.id in ['liveness', 'selfie']]
         return pol[-1] if pol else None
+
+    @property
+    def proof_of_life_url(self) -> Optional[str]:
+        pol = self.proof_of_life_document
+        if not pol:
+            return None
+        data = getattr(pol, 'data', {}) or {}
+        return data.get('video_url') or data.get('selfie_photo_url')
 
     @property
     def proof_of_life_errors(self) -> List[Errors]:
@@ -97,7 +105,7 @@ class Verification(Resource):
                 else None,
             )
             for pol in self.steps  # type: ignore
-            if pol.id == 'liveness' and pol.error
+            if pol.id in ['liveness', 'selfie'] and pol.error
         ]
 
     @property
