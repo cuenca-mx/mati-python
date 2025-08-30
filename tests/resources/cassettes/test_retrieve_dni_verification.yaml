@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - mati-python/2.0.1.dev1
     method: POST
-    uri: https://api.getmati.com/oauth
+    uri: https://api.prod.metamap.com/oauth
   response:
     body:
       string: '{"access_token": "ACCESS_TOKEN", "expiresIn": 3600, "payload": {"user":
@@ -76,7 +76,7 @@ interactions:
       User-Agent:
       - mati-python/2.0.1.dev1
     method: GET
-    uri: https://api.getmati.com/v2/verifications/634870763768f1001cac7591
+    uri: https://api.prod.metamap.com/v2/verifications/634870763768f1001cac7591
   response:
     body:
       string: '{"expired": false, "identity": {"status": "verified"}, "flow": {"id":
