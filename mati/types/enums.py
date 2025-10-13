@@ -184,6 +184,16 @@ class VerificationDocument(BaseModel):
             return self.fields['ocr_number']['value']
         return ''
 
+    @property
+    def expiration_date(self) -> str:
+        """
+        This property fills the expiration date direct from the ocr
+        fields `expiration_date`
+        """
+        if self.fields and 'expiration_date' in self.fields:
+            return self.fields['expiration_date']['value']
+        return ''
+
     def add_expired_step(self) -> None:
         '''
         Appends an expired error step to the document if missing.
