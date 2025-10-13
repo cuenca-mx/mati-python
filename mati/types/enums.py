@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field, fields
+from datetime import date
 from enum import Enum
 from typing import Any, BinaryIO, Dict, List, Optional, Union
 
@@ -183,6 +184,40 @@ class VerificationDocument(BaseModel):
         if self.fields and 'ocr_number' in self.fields:
             return self.fields['ocr_number']['value']
         return ''
+
+    @property
+    def expiration_date(self) -> Optional[date]:
+        """
+        This property fills the expiration date direct from the ocr
+        fields `expiration_date`.
+
+        Returns a date object if the field is present and valid.
+        Returns None if the field is missing, invalid, or fields is None.
+        """
+        if self.fields is None:
+            return None
+        try:
+            date_str = self.fields['expiration_date']['value']
+            return date.fromisoformat(date_str)
+        except (KeyError, TypeError, ValueError):
+            return None
+
+    @property
+    def emission_date(self) -> Optional[date]:
+        """
+        This property fills the emission date direct from the ocr
+        fields `emission_date`.
+
+        Returns a date object if the field is present and valid.
+        Returns None if the field is missing, invalid, or fields is None.
+        """
+        if self.fields is None:
+            return None
+        try:
+            date_str = self.fields['emission_date']['value']
+            return date.fromisoformat(date_str)
+        except (KeyError, TypeError, ValueError):
+            return None
 
     def add_expired_step(self) -> None:
         '''
