@@ -2,7 +2,7 @@ import pytest
 from pytest_lazyfixture import lazy_fixture
 
 from mati.types import ValidationInputType
-from mati.types.enums import VerificationDocumentStep
+from mati.types.enums import VerificationDocument, VerificationDocumentStep
 
 
 def test_type_to_str():
@@ -44,3 +44,30 @@ def test_excess_fields():
     data = {'some': 'data', 'aditional': 'data', 'id': 'foo', 'status': 10}
     VerificationDocumentStep._filter_excess_fields(data)
     assert 'some' not in data
+
+
+def test_expiration_date_property():
+    doc = VerificationDocument(
+        country='MX',
+        region='',
+        photos=[],
+        steps=[],
+        type='national-id',
+        fields={
+            'expiration_date': {
+                'value': '2030-12-31',
+                'label': 'Date of Expiration',
+                'format': 'date',
+            }
+        },
+    )
+    assert doc.expiration_date == '2030-12-31'
+    doc_no_fields = VerificationDocument(
+        country='MX',
+        region='',
+        photos=[],
+        steps=[],
+        type='national-id',
+        fields=None,
+    )
+    assert doc_no_fields.expiration_date == ''
