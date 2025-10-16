@@ -1,8 +1,11 @@
+from datetime import date
+from typing import Any, Dict, Optional
+
 import pytest
 from pytest_lazyfixture import lazy_fixture
 
 from mati.types import ValidationInputType
-from mati.types.enums import VerificationDocumentStep
+from mati.types.enums import VerificationDocument, VerificationDocumentStep
 
 
 def test_type_to_str():
@@ -44,3 +47,67 @@ def test_excess_fields():
     data = {'some': 'data', 'aditional': 'data', 'id': 'foo', 'status': 10}
     VerificationDocumentStep._filter_excess_fields(data)
     assert 'some' not in data
+
+
+@pytest.mark.parametrize(
+    ('fields', 'expected'),
+    [
+        (
+            {
+                'expiration_date': {
+                    'value': '2030-12-31',
+                    'label': 'Date of Expiration',
+                    'format': 'date',
+                }
+            },
+            date(2030, 12, 31),
+        ),
+        (None, None),
+        ({'address': {'value': 'Test Address', 'label': 'Address'}}, None),
+        ({'expiration_date': {'label': 'Date of Expiration'}}, None),
+    ],
+)
+def test_expiration_date_property(
+    fields: Optional[Dict[str, Any]], expected: Optional[date]
+) -> None:
+    doc = VerificationDocument(
+        country='MX',
+        region='',
+        photos=[],
+        steps=[],
+        type='national-id',
+        fields=fields,
+    )
+    assert doc.expiration_date == expected
+
+
+@pytest.mark.parametrize(
+    ('fields', 'expected'),
+    [
+        (
+            {
+                'emission_date': {
+                    'value': '2023-01-15',
+                    'label': 'Emission Date',
+                    'format': 'date',
+                }
+            },
+            date(2023, 1, 15),
+        ),
+        (None, None),
+        ({'address': {'value': 'Test Address', 'label': 'Address'}}, None),
+        ({'emission_date': {'label': 'Emission Date'}}, None),
+    ],
+)
+def test_emission_date_property(
+    fields: Optional[Dict[str, Any]], expected: Optional[date]
+) -> None:
+    doc = VerificationDocument(
+        country='MX',
+        region='',
+        photos=[],
+        steps=[],
+        type='proof-of-residency',
+        fields=fields,
+    )
+    assert doc.emission_date == expected
